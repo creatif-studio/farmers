@@ -10,10 +10,6 @@ Before you contribute, make sure to read these guidelines thoroughly, so that yo
   * [Improving Documentation and Writing Tutorials](#improving-documentation-and-writing-tutorials)
   * [Features](#features)
 - [Writing Code](#writing-code)
-  * [Navigating the Codebase](#navigating-the-codebase)
-  * [Getting started](#getting-started)
-  * [Testing](#testing)
-- [Making the PR](#making-the-pr)
 
 > **Note:** we're still working on our contributing process, as we're a young project. If you'd like to suggest or discuss changes to this document or the process in general, we're very open to suggestions and would appreciate if you reach out on Facebook Group or at [contact@cloudboz.com](mailto:contact@cloudboz.com)! To suggest additions to this document, feel free to raise an issue or make a PR with the changes. 
 
