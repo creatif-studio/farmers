@@ -1,0 +1,9 @@
+---
+# vars file for rabbitmq
+
+rabbitmq_app_name:
+rabbitmq_docker_image:
+rabbitmq_docker_tag:
+rabbitmq_docker_ports:
+rabbitmq_docker_env_user:
+rabbitmq_docker_env_password:
