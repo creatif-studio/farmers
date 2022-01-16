@@ -28,3 +28,5 @@
       - "{{ phpmyadmin_docker_ports }}:80"
   tags:
     - phpmyadmin-install
+
+# Test
