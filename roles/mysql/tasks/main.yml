@@ -1,11 +1,11 @@
 # CloudBoz - MySQL Install
-- name: "install mysql database"
+- name: "install mysql"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
-    name: "{{ mysql_app_name }}"
+    name: "{{ mysql_docker_name }}"
     image: "{{ mysql_docker_image }}:{{ mysql_docker_tag }}"
     volumes:
-      - "/home/cloudboz/{{ mysql_app_name }}-data:/var/lib/mysql:rw"
+      - "/home/{{ ansible_user }}/{{ mysql_docker_name }}-data:/var/lib/mysql"
     restart_policy: always
     ports:
       - "{{ mysql_docker_ports }}:3306"
@@ -15,16 +15,4 @@
       MYSQL_USER: "{{ mysql_docker_env_user }}"
       MYSQL_PASSWORD: "{{ mysql_docker_env_password }}"
   tags:
-    - mysql-install
-
-# CloudBoz - PhpMyAdmin Install
-- name: "install phpmyadmin"
-  become_user: "{{ ansible_user }}"
-  community.docker.docker_container:
-    name: "{{ phpmyadmin_app_name }}"
-    image: "{{ phpmyadmin_docker_image }}:{{ phpmyadmin_docker_tag }}"
-    restart_policy: always
-    ports:
-      - "{{ phpmyadmin_docker_ports }}:80"
-  tags:
-    - phpmyadmin-install
+    - install-mysql
