@@ -4,6 +4,8 @@
   community.docker.docker_container:
     name: "{{ mysql_docker_name }}"
     image: "{{ mysql_docker_image }}:{{ mysql_docker_tag }}"
+    networks:
+      - name: cloudboz-network
     volumes:
       - "/home/{{ ansible_user }}/{{ mysql_docker_name }}-data:/var/lib/mysql"
     restart_policy: always
@@ -16,3 +18,12 @@
       MYSQL_PASSWORD: "{{ mysql_docker_env_password }}"
   tags:
     - install-mysql
+
+# CloudBoz - MySQL Uninstall
+- name: "uninstall mysql"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ mysql_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-mysql
