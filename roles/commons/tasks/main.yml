@@ -178,3 +178,11 @@
   when: ansible_swaptotal_mb < 1
   tags:
     - install-commons
+
+# CloudBoz - Default Docker Network
+- name: "create a new docker network"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_network:
+    name: "cloudboz-network"
+  tags:
+    - install-commons
