@@ -30,3 +30,22 @@ mysql_docker_env_root_password: mysql-root-pass # default user is a root
 mysql_docker_env_database: mysql-db-test # create a new database
 mysql_docker_env_user: mysql-user-test # create a new user
 mysql_docker_env_password: mysql-pass-test # create a new password
+
+# POSTGRES ENV
+postgres_app_name: postgres
+postgres_image: postgres
+postgres_tag: 13-bullseye
+postgres_volume: postgres-data
+postgres_ports: 5432
+postgres_root_password: cloudboz
+postgres_database: cloudboz
+postgres_user: cloudboz
+postgres_password: cloudboz
+
+# PGADMIN ENV
+pgadmin_app_name: pgadmin
+pgadmin_image: dpage/pgadmin4
+pgadmin_tag: latest
+pgadmin_ports: 15432
+pgadmin_default_email: admin@cloudboz.com
+pgadmin_default_password: cloudboz
