@@ -1,0 +1,44 @@
+---
+- hosts: postgres-database
+  tasks:
+  - name: "Install PostgreSQL Database"
+    become_user: "{{ ansible_user }}"
+    community.docker.docker_container:
+      name: "{{ postgres_app_name }}"
+      image: "{{ postgres_image }}:{{ postgres_tag }}"
+      restart_policy: always
+      ports:
+        - "{{ postgres_ports }}:5432"
+      env:
+        POSTGRES_ROOT_PASSWORD: "{{ postgres_root_password }}"
+        POSTGRES_DATABASE: "{{ postgres_database }}"
+        POSTGRES_USER: "{{ postgres_user }}"
+        POSTGRES_PASSWORD: "{{ postgres_password }}"
+      volumes:
+        - "/home/{{ ansible_user }}/{{ postgres_app_name }}-data:/var/lib/postgresql/data"
+    tags:
+      - postgres
+      - database
+
+  - name: "Install PGAdmin"
+    become_user: "{{ ansible_user }}"
+    community.docker.docker_container:
+      name: "{{ pgadmin_app_name }}"
+      image: "{{ pgadmin_image }}:{{ pgadmin_tag }}"
+      restart_policy: always
+      ports:
+        - "{{ pgadmin_ports }}:80"
+      env:
+        PGADMIN_DEFAULT_EMAIL: "{{ pgadmin_default_email }}"
+        PGADMIN_DEFAULT_PASSWORD: "{{ pgadmin_default_password }}"
+    tags:
+      - pgadmin
+      - database
+      - dashboard
+
+  - name: "Add Container to a Network"
+    docker_network:
+      name: cloudboz-network
+      connected: 
+        - "{{ postgres_app_name }}"
+        - "{{ pgadmin_app_name }}"
