@@ -6,11 +6,6 @@ ansible_sudo_pass:
 ansible_ssh_private_key_file: files/sshkey.pem
 ansible_python_interpreter: /usr/bin/python3
 
-# CREATE DEFAULT USER ENV
-cloudboz_username:
-cloudboz_password:
-# mkpasswd --method=sha-512 : type password here
-
 # SSH ENV
 pass_auth: PasswordAuthentication yes
 pubkey_auth: PubkeyAuthentication yes
@@ -25,21 +20,13 @@ docker_apt_release_channel: stable
 docker_apt_arch: amd64
 docker_apt_repository: "deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ docker_apt_release_channel }}"
 docker_apt_gpg_key: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
-docker_compose_version: "1.29.2"
 
 # MYSQL ENV
-mysql_app_name: mysql
+mysql_docker_name: mysql
 mysql_docker_image: mysql
 mysql_docker_tag: latest
-mysql_docker_volume: mysql-data
 mysql_docker_ports: 3306
-mysql_docker_env_root_password: 2wsx1qaz
-mysql_docker_env_database: 2wsx1qaz
-mysql_docker_env_user: 2wsx1qaz
-mysql_docker_env_password: 2wsx1qaz
-
-# PHPMYADMIN ENV
-phpmyadmin_app_name: phpmyadmin
-phpmyadmin_docker_image: phpmyadmin/phpmyadmin
-phpmyadmin_docker_tag: latest
-phpmyadmin_docker_ports: 3307
+mysql_docker_env_root_password: mysql-root-pass # default user is a root
+mysql_docker_env_database: mysql-db-test # create a new database
+mysql_docker_env_user: mysql-user-test # create a new user
+mysql_docker_env_password: mysql-pass-test # create a new password
