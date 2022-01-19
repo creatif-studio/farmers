@@ -32,20 +32,20 @@ mysql_docker_env_user: mysql-user-test # create a new user
 mysql_docker_env_password: mysql-pass-test # create a new password
 
 # POSTGRES ENV
-postgres_app_name: postgres
-postgres_image: postgres
-postgres_tag: 13-bullseye
-postgres_volume: postgres-data
-postgres_ports: 5432
-postgres_root_password: cloudboz
-postgres_database: cloudboz
-postgres_user: cloudboz
-postgres_password: cloudboz
+postgresql_docker_name: postgresql
+postgresql_docker_image: postgres
+postgresql_docker_tag: 13-bullseye
+postgresql_docker_volume: postgresql-data
+postgresql_docker_ports: 5432
+postgresql_docker_env_root_password: postgresql-root-pass
+postgresql_docker_env_database: postgresql-db-test
+postgresql_docker_env_user: postgresql-user-test
+postgresql_docker_env_password: postgresql-pass-test
 
 # PGADMIN ENV
-pgadmin_app_name: pgadmin
-pgadmin_image: dpage/pgadmin4
-pgadmin_tag: latest
-pgadmin_ports: 15432
-pgadmin_default_email: admin@cloudboz.com
-pgadmin_default_password: cloudboz
+pgadmin_docker_name: pgadmin
+pgadmin_docker_image: dpage/pgadmin4
+pgadmin_docker_tag: latest
+pgadmin_docker_ports: 15432
+pgadmin_docker_env_default_email: admin@cloudboz.com
+pgadmin_docker_env_default_password: cloudboz
