@@ -48,3 +48,9 @@ pgadmin_docker_tag: latest
 pgadmin_docker_ports: 15432
 pgadmin_docker_env_default_email: admin@cloudboz.com
 pgadmin_docker_env_default_password: cloudboz
+
+# WORDPRESS ENV
+wordpress_docker_name: wordpress
+wordpress_docker_image: wordpress
+wordpress_docker_tag: latest
+wordpress_docker_ports: 8080
