@@ -15,7 +15,7 @@
       POSTGRES_USER: "{{ postgresql_docker_env_user }}"
       POSTGRES_PASSWORD: "{{ postgresql_docker_env_password }}"
     volumes:
-      - "/home/{{ ansible_user }}/{{ postgresql_docker_volume }}-data:/var/lib/postgresql/data"
+      - "/home/{{ ansible_user }}/{{ postgresql_docker_name }}-data:/var/lib/postgresql/data"
   tags:
     - install-postgresql
 
