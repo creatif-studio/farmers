@@ -19,7 +19,7 @@
 - name: "Remove PGAdmin"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
-    name: "{{ pgadmin_app_name }}"
+    name: "{{ pgadmin_docker_name }}"
     state: absent
   tags:
     - uninstall-pgadmin
