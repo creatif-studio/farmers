@@ -1,0 +1,30 @@
+# CloudBoz - WordPress Install
+- name: "install wordpress"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ wordpress_docker_name }}"
+    image: "{{ wordpress_docker_image }}:{{ wordpress_docker_tag }}"
+    networks:
+      - name: cloudboz-network
+    volumes:
+      - "/home/{{ ansible_user }}/{{ wordpress_docker_name }}-data:/var/www/html"
+    restart_policy: always
+    ports:
+      - "{{ wordpress_docker_ports }}:80"
+    env:
+      WORDPRESS_DB_HOST: "{{ mysql_docker_name }}:{{ mysql_docker_ports }}"
+      WORDPRESS_DB_USER: "{{ mysql_docker_env_user }}"
+      WORDPRESS_DB_PASSWORD: "{{ mysql_docker_env_password }}"
+      WORDPRESS_DB_NAME: "{{ mysql_docker_env_database }}"
+      WORDPRESS_TABLE_PREFIX: "{{ wordpress_docker_name }}_"
+  tags:
+    - install-wordpress
+
+# CloudBoz - WordPress Uninstall
+- name: "uninstall wordpress"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ wordpress_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-wordpress
