@@ -23,7 +23,7 @@
 - name: "Remove PostgreSQL Database"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
-    name: "{{ postgres_app_name }}"
+    name: "{{ postgresql_docker_name }}"
     state: absent
   tags:
     - uninstall-postgresql
