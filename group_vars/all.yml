@@ -30,3 +30,9 @@ mysql_docker_env_root_password: mysql-root-pass # default user is a root
 mysql_docker_env_database: mysql-db-test # create a new database
 mysql_docker_env_user: mysql-user-test # create a new user
 mysql_docker_env_password: mysql-pass-test # create a new password
+
+# JOOMLA ENV
+joomla_docker_name: joomla
+joomla_docker_image: joomla
+joomla_docker_tag: latest
+joomla_docker_ports: 8080

@@ -1,0 +1,19 @@
+#joomla Install Docker
+- name: "install-joomla"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ joomla_docker_name }}"
+    image: "{{ joomla_docker_image }}:{{ joomla_docker_tag }}"
+    networks:
+      - name: cloudboz-network
+    volumes:  
+     - "/home/{{ ansible_user }}/{{ joomla_docker_name }}-data:/var/lib/joomla"
+    ports:
+     - "{{ joomla_docker_ports }}:80"
+    env:
+     JOOMLA_DB_HOST: "{{ mysql_docker_name }}:{{ mysql_docker_ports }}"
+     JOOMLA_DB_USER: "{{ mysql_docker_env_user }}"
+     JOOMLA_DB_PASSWORD: "{{ mysql_docker_env_password }}"
+     JOOMLA_DB_NAME: "{{ mysql_docker_env_database }}"
+  tags: 
+    - install-joomla    
