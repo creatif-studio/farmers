@@ -3,6 +3,7 @@
   gather_facts: yes
   roles:
     - commons
+    - optimization
     - mysql
     - postgresql
     - pgadmin
