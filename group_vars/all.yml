@@ -61,3 +61,9 @@ rancher_docker_image: rancher/rancher
 rancher_docker_tag: latest
 rancher_docker_http_ports: 80
 rancher_docker_https_ports: 443
+
+# REDIS ENV
+redis_docker_name: redis
+redis_docker_image: redis
+redis_docker_tag: latest
+redis_docker_ports: 6379
