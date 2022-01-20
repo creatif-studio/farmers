@@ -6,7 +6,6 @@
     name: "{{ rabbitmq_app_name }}"
     image: "{{ rabbitmq_docker_image }}:{{ rabbitmq_docker_tag }}"
     volumes:
-      - "/home/{{ ansible_user }}/{{ rabbitmq_app_name }}-config:/etc/rabbitmq"
       - "/home/{{ ansible_user }}/{{ rabbitmq_app_name }}-data:/var/lib/rabbitmq:rw"
     restart_policy: always
     networks:
