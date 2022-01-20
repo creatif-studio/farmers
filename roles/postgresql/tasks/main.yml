@@ -1,0 +1,29 @@
+# CloudBoz - PostgreSQL Install
+- name: "Install PostgreSQL Database"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ postgresql_docker_name }}"
+    image: "{{ postgresql_docker_image }}:{{ postgresql_docker_tag }}"
+    networks:
+      - name: cloudboz-network
+    restart_policy: always
+    ports:
+      - "{{ postgresql_docker_ports }}:5432"
+    env:
+      POSTGRES_ROOT_PASSWORD: "{{ postgresql_docker_env_root_password }}"
+      POSTGRES_DATABASE: "{{ postgresql_docker_env_database }}"
+      POSTGRES_USER: "{{ postgresql_docker_env_user }}"
+      POSTGRES_PASSWORD: "{{ postgresql_docker_env_password }}"
+    volumes:
+      - "/home/{{ ansible_user }}/{{ postgresql_docker_name }}-data:/var/lib/postgresql/data"
+  tags:
+    - install-postgresql
+
+# CloudBoz - PostgreSQL Uninstall    
+- name: "Remove PostgreSQL Database"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ postgresql_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-postgresql
