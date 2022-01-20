@@ -1,0 +1,26 @@
+# CloudBoz - Rancher Install
+- name: "install rancher"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ rancher_docker_name }}"
+    image: "{{ rancher_docker_image }}:{{ rancher_docker_tag }}"
+    networks:
+      - name: cloudboz-network
+    volumes:
+      - "/home/{{ ansible_user }}/{{ rancher_docker_name }}-data:/var/lib/rancher"
+    restart_policy: always
+    ports:
+      - "{{ rancher_docker_http_ports }}:80"
+      - "{{ rancher_docker_https_ports }}:443"
+    privileged: true
+  tags:
+    - install-rancher
+
+# CloudBoz - rancher Uninstall
+- name: "uninstall rancher"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ rancher_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-rancher
