@@ -7,7 +7,7 @@
     networks:
       - name: cloudboz-network
     volumes:  
-     - "/home/{{ ansible_user }}/{{ joomla_docker_name }}-data:/var/lib/joomla"
+     - "/home/{{ ansible_user }}/{{ joomla_docker_name }}-data:/var/www/html"
     ports:
      - "{{ joomla_docker_ports }}:80"
     env:
@@ -17,3 +17,12 @@
      JOOMLA_DB_NAME: "{{ mysql_docker_env_database }}"
   tags: 
     - install-joomla    
+
+# CloudBoz - Joomla Uninstall
+- name: "uninstall mysql"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ joomla_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-joomla
