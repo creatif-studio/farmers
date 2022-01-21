@@ -1,0 +1,27 @@
+# CloudBoz - redis Install
+- name: "install redis"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ redis_docker_name }}"
+    image: "{{ redis_docker_image }}:{{ redis_docker_tag }}"
+    networks:
+      - name: cloudboz-network
+    # volumes:
+    #   - "/home/{{ ansible_user }}/{{ redis_docker_name }}-data:/var/lib/redis" ### Because need stateless dont need persistent volume if statefull uncomment
+    restart_policy: always
+    env:
+      REDIS_PASSWORD: "{{ redis_docker_env_password }}"
+    ports:
+      - "{{ redis_docker_ports }}:6379"
+    privileged: true
+  tags:
+    - install-redis
+
+# CloudBoz - redis Uninstall
+- name: "uninstall redis"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ redis_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-redis
