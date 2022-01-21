@@ -3,9 +3,11 @@
   gather_facts: yes
   roles:
     - commons
+    - mysql
     - optimization
     - mysql
     - postgresql
     - pgadmin
     - wordpress
     - rancher
+    - rabbitmq
