@@ -5,8 +5,10 @@
     - commons
     - optimization
     - mysql
+    - phpmyadmin
     - postgresql
     - pgadmin
     - wordpress
+    - joomla
     - rancher
-    - redis
+    - rabbitmq
