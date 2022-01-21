@@ -11,4 +11,5 @@
     - wordpress
     - joomla
     - rancher
+    - redis
     - rabbitmq
