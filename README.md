@@ -8,7 +8,7 @@
 
 For help, questions, or if you just want a place to hang out, [join our Facebook community.](https://facebook.com/groups/cloudboz)
 
-## Why Porter?
+## Why CloudBoz?
 - Don’t learn Linux to manage your server and applications, CloudBoz can handle it for you!
 - CloudBoz can configure multiple servers with a one-click installer.
 - CloudBoz has a marketplace, choose what you want to install in your servers!
