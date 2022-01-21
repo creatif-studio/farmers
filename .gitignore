@@ -1,4 +1,0 @@
-cloudboz.yml
-files/sshkey.pem
-group_vars/all.yml
-ansible.host
