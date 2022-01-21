@@ -1,6 +1,6 @@
 # ANSIBLE ENV
 ansible_connection: ssh
-ansible_user:
+ansible_user: 
 ansible_ssh_pass: 
 ansible_sudo_pass: 
 ansible_ssh_private_key_file: files/sshkey.pem
@@ -30,6 +30,12 @@ mysql_docker_env_root_password: mysql-root-pass # default user is a root
 mysql_docker_env_database: mysql-db-test # create a new database
 mysql_docker_env_user: mysql-user-test # create a new user
 mysql_docker_env_password: mysql-pass-test # create a new password
+
+# PHPMYADMIN ENV
+phpmyadmin_app_name: phpmyadmin
+phpmyadmin_docker_image: phpmyadmin/phpmyadmin
+phpmyadmin_docker_tag: latest
+phpmyadmin_docker_ports: 3307 
 
 # POSTGRES ENV
 postgresql_docker_name: postgresql
@@ -62,7 +68,7 @@ rancher_docker_tag: latest
 rancher_docker_http_ports: 80
 rancher_docker_https_ports: 443
 
-# Rabbitmq ENV
+# RABBITMQ ENV
 rabbitmq_docker_name: rabbitmq-app
 rabbitmq_docker_image: rabbitmq
 rabbitmq_docker_tag: 3.8-management-alpine

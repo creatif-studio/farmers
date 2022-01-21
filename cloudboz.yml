@@ -3,9 +3,9 @@
   gather_facts: yes
   roles:
     - commons
-    - mysql
     - optimization
     - mysql
+    - phpmyadmin
     - postgresql
     - pgadmin
     - wordpress
