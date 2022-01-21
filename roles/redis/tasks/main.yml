@@ -9,6 +9,8 @@
     # volumes:
     #   - "/home/{{ ansible_user }}/{{ redis_docker_name }}-data:/var/lib/redis" ### Because need stateless dont need persistent volume if statefull uncomment
     restart_policy: always
+    env:
+      REDIS_PASSWORD: "{{ redis_docker_env_password }}"
     ports:
       - "{{ redis_docker_ports }}:6379"
     privileged: true
