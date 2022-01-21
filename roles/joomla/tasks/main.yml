@@ -19,7 +19,7 @@
     - install-joomla    
 
 # CloudBoz - Joomla Uninstall
-- name: "uninstall mysql"
+- name: "uninstall joomla"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
     name: "{{ joomla_docker_name }}"
