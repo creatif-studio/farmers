@@ -47,6 +47,7 @@
     rule: "{{ ufw_rule }}"
     port: "{{ item }}"
     proto: tcp
+    delete: yes
   loop:
     - "{{ rabbitmq_docker_ui_ports | quote }}"
     - "{{ rabbitmq_docker_amqp_ports | quote }}"
