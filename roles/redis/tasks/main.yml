@@ -1,4 +1,4 @@
-# CloudBoz - redis Install
+# CloudBoz - Redis Install
 - name: "install redis"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
@@ -17,11 +17,34 @@
   tags:
     - install-redis
 
-# CloudBoz - redis Uninstall
+# CloudBoz - Redis Firewall Install
+- name: "'{{ ufw_rule }}' port '{{ redis_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+  loop:
+    - "{{ redis_docker_ports | quote }}"
+  tags:
+    - install-redis
+
+# CloudBoz - Redis Uninstall
 - name: "uninstall redis"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
     name: "{{ redis_docker_name }}"
     state: absent
+  tags:
+    - uninstall-redis
+
+# CloudBoz - Redis Firewall Uninstall
+- name: "'{{ ufw_rule }}' port '{{ redis_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+    delete: yes
+  loop:
+    - "{{ redis_docker_ports | quote }}"
   tags:
     - uninstall-redis

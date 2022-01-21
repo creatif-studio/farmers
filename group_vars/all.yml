@@ -21,6 +21,9 @@ docker_apt_arch: amd64
 docker_apt_repository: "deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ docker_apt_release_channel }}"
 docker_apt_gpg_key: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
 
+# FIREWALL ENV
+ufw_rule: allow
+
 # MYSQL ENV
 mysql_docker_name: mysql
 mysql_docker_image: mysql

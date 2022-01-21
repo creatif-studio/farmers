@@ -19,11 +19,34 @@
   tags:
     - install-postgresql
 
+# CloudBoz - PostgreSQL Firewall Install
+- name: "'{{ ufw_rule }}' port '{{ postgresql_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+  loop:
+    - "{{ postgresql_docker_ports | quote }}"
+  tags:
+    - install-postgresql
+
 # CloudBoz - PostgreSQL Uninstall    
 - name: "Remove PostgreSQL Database"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
     name: "{{ postgresql_docker_name }}"
     state: absent
+  tags:
+    - uninstall-postgresql
+
+# CloudBoz - PostgreSQL Firewall Uninstall
+- name: "'{{ ufw_rule }}' port '{{ postgresql_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+    delete: yes
+  loop:
+    - "{{ postgresql_docker_ports | quote }}"
   tags:
     - uninstall-postgresql

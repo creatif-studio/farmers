@@ -1,5 +1,5 @@
 ---
-# CloudBoz - tasks file for rabbitmq install
+# CloudBoz - RabbitMQ Install
 - name: "install rabbitmq"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
@@ -20,11 +20,35 @@
   tags:
     - install-rabbitmq
 
-# CloudBoz - rabbitmq Uninstall    
+# CloudBoz - RabbitMQ Firewall Install
+- name: "'{{ ufw_rule }}' port '{{ rabbitmq_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+  loop:
+    - "{{ rabbitmq_docker_ui_ports | quote }}"
+    - "{{ rabbitmq_docker_amqp_ports | quote }}"
+  tags:
+    - install-rabbitmq
+
+# CloudBoz - RabbitMQ Uninstall    
 - name: "Remove Rabbitmq Container"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
     name: "{{ rabbitmq_docker_name }}"
     state: absent
+  tags:
+    - uninstall-rabbitmq
+
+# CloudBoz - RabbitMQ Firewall Uninstall
+- name: "'{{ ufw_rule }}' port '{{ rabbitmq_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+  loop:
+    - "{{ rabbitmq_docker_ui_ports | quote }}"
+    - "{{ rabbitmq_docker_amqp_ports | quote }}"
   tags:
     - uninstall-rabbitmq
