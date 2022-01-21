@@ -81,14 +81,6 @@
   tags:
     - install-commons
 
-- name: "start systemd docker"
-  systemd:
-    state: started
-    name: docker
-    enabled: true
-  tags:
-    - install-commons
-
 # CloudBoz - Installs Docker SDK
 - name: "install python package manager"
   apt:
@@ -110,79 +102,10 @@
   tags:
     - install-commons
 
-# CloudBoz - Kernel optimization
-- name: "config kernel at /etc/sysctl.conf"
-  copy: 
-    src: "{{ item }}"
-    dest: /etc/sysctl.conf
-  with_items:
-    - cb-sysctl.conf
-  tags:
-    - install-commons
-
-- name: "reload kernel at /etc/sysctl.conf"
-  shell: sysctl -p
-  args:
-    executable: /bin/bash
-  tags:
-    - install-commons
-
-- name: "config ulimit at /etc/security/limits.conf"
-  copy: 
-    src: "{{ item }}"
-    dest: /etc/security/limits.conf
-  with_items:
-    - cb-limits.conf
-  tags:
-    - install-commons
-
-# CloudBoz - Swap memory
-- name: "create swap at /swapfile"
-  command: dd if=/dev/zero of={{ swap_file_path }} bs=1024 count={{ swap_file_size }} creates="{{ swap_file_path }}"
-  tags:
-    - install-commons
-
-- name: "change permissions at /swapfile"
-  file: path="{{ swap_file_path }}"
-        owner=root
-        group=root
-        mode=0600
-  tags:
-    - install-commons
-
-- name: "checking type at /swapfile"
-  command: file {{ swap_file_path }}
-  register: swapfile
-  tags:
-    - install-commons
-
-- name: "make swap at /swapfile"
-  command: "sudo mkswap {{ swap_file_path }}"
-  when: swapfile.stdout.find('swap file') == -1
-  tags:
-    - install-commons
-
-- name: "write swap entry in fstab"
-  mount: name=none
-         src={{ swap_file_path }}
-         fstype=swap
-         opts=sw
-         passno=0
-         dump=0
-         state=present
-  tags:
-    - install-commons
-
-- name: "mount /swapfile"
-  command: "swapon {{ swap_file_path }}"
-  when: ansible_swaptotal_mb < 1
-  tags:
-    - install-commons
-
-# CloudBoz - Default Docker Network
-- name: "create a new docker network"
-  become_user: "{{ ansible_user }}"
-  community.docker.docker_network:
-    name: "cloudboz-network"
+- name: "start systemd docker"
+  systemd:
+    state: started
+    name: docker
+    enabled: true
   tags:
     - install-commons

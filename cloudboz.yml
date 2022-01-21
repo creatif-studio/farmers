@@ -1,0 +1,13 @@
+- hosts: all
+  become: true
+  gather_facts: yes
+  roles:
+    - commons
+    - optimization
+    - mysql
+    - phpmyadmin
+    - postgresql
+    - pgadmin
+    - wordpress
+    - rancher
+    - rabbitmq
