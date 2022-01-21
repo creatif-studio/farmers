@@ -6,7 +6,7 @@
     name: "{{ rabbitmq_docker_name }}"
     image: "{{ rabbitmq_docker_image }}:{{ rabbitmq_docker_tag }}"
     volumes:
-      - "/home/{{ ansible_user }}/{{ rabbitmq_docker_name }}-data:/var/lib/rabbitmq:rw"
+      - "/cloudboz/{{ rabbitmq_docker_name }}-data:/var/lib/rabbitmq:rw"
     restart_policy: always
     networks:
       - name: cloudboz-network
@@ -53,3 +53,10 @@
     - "{{ rabbitmq_docker_amqp_ports | quote }}"
   tags:
     - uninstall-rabbitmq
+
+# CloudBoz - RabbitMQ Uninstall with Data
+- name: "uninstall rabbitmq data"
+  become_user: "{{ ansible_user }}"
+  shell: "sudo rm -fr /cloudboz/{{ rabbitmq_docker_name }}-data"
+  tags:
+    - uninstall-rabbitmq-data

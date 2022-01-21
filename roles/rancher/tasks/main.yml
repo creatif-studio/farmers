@@ -7,7 +7,7 @@
     networks:
       - name: cloudboz-network
     volumes:
-      - "/home/{{ ansible_user }}/{{ rancher_docker_name }}-data:/var/lib/rancher"
+      - "/cloudboz/{{ rancher_docker_name }}-data:/var/lib/rancher"
     restart_policy: always
     ports:
       - "{{ rancher_docker_http_ports }}:80"
@@ -24,3 +24,10 @@
     state: absent
   tags:
     - uninstall-rancher
+
+# CloudBoz - Rancher Uninstall with Data
+- name: "uninstall rancher data"
+  become_user: "{{ ansible_user }}"
+  shell: "sudo rm -fr /cloudboz/{{ rancher_docker_name }}-data"
+  tags:
+    - uninstall-rancher-data

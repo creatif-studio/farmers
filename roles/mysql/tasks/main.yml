@@ -7,7 +7,7 @@
     networks:
       - name: cloudboz-network
     volumes:
-      - "/home/{{ ansible_user }}/{{ mysql_docker_name }}-data:/var/lib/mysql"
+      - "/cloudboz/{{ mysql_docker_name }}-data:/var/lib/mysql"
     restart_policy: always
     ports:
       - "{{ mysql_docker_ports }}:3306"
@@ -50,3 +50,10 @@
     - "{{ mysql_docker_ports | quote }}"
   tags:
     - uninstall-mysql
+
+# CloudBoz - MySQL Uninstall with Data
+- name: "uninstall mysql data"
+  become_user: "{{ ansible_user }}"
+  shell: "sudo rm -fr /cloudboz/{{ mysql_docker_name }}-data"
+  tags:
+    - uninstall-mysql-data
