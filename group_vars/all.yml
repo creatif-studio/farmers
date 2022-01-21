@@ -31,15 +31,12 @@ mysql_docker_env_database: mysql-db-test # create a new database
 mysql_docker_env_user: mysql-user-test # create a new user
 mysql_docker_env_password: mysql-pass-test # create a new password
 
-<<<<<<< HEAD
-=======
 # PHPMYADMIN ENV
 phpmyadmin_app_name: phpmyadmin
 phpmyadmin_docker_image: phpmyadmin/phpmyadmin
 phpmyadmin_docker_tag: latest
 phpmyadmin_docker_ports: 3307 
 
->>>>>>> alpha
 # POSTGRES ENV
 postgresql_docker_name: postgresql
 postgresql_docker_image: postgres
@@ -71,13 +68,6 @@ rancher_docker_tag: latest
 rancher_docker_http_ports: 80
 rancher_docker_https_ports: 443
 
-<<<<<<< HEAD
-# JOOMLA ENV
-joomla_docker_name: joomla
-joomla_docker_image: joomla
-joomla_docker_tag: latest
-joomla_docker_ports: 8080
-=======
 # RABBITMQ ENV
 rabbitmq_docker_name: rabbitmq-app
 rabbitmq_docker_image: rabbitmq
@@ -86,4 +76,9 @@ rabbitmq_docker_ui_ports: 15672
 rabbitmq_docker_amqp_ports: 5672
 rabbitmq_docker_env_user: rabbitmquser
 rabbitmq_docker_env_password: rabbitmqpassword
->>>>>>> alpha
+
+# JOOMLA ENV
+joomla_docker_name: joomla
+joomla_docker_image: joomla
+joomla_docker_tag: latest
+joomla_docker_ports: 8080
