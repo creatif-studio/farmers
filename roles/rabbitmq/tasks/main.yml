@@ -3,16 +3,16 @@
 - name: "install rabbitmq"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
-    name: "{{ rabbitmq_app_name }}"
+    name: "{{ rabbitmq_docker_name }}"
     image: "{{ rabbitmq_docker_image }}:{{ rabbitmq_docker_tag }}"
     volumes:
-      - "/home/{{ ansible_user }}/{{ rabbitmq_app_name }}-data:/var/lib/rabbitmq:rw"
+      - "/home/{{ ansible_user }}/{{ rabbitmq_docker_name }}-data:/var/lib/rabbitmq:rw"
     restart_policy: always
     networks:
       - name: cloudboz-network
     ports:
-      - "{{ rabbitmq_ui_docker_ports }}:15672" # HTTP management UI
-      - "{{ rabbitmq_amqp_docker_ports }}:5672" # AMQP protocol port
+      - "{{ rabbitmq_docker_ui_ports }}:15672" # HTTP management UI
+      - "{{ rabbitmq_docker_amqp_ports }}:5672" # AMQP protocol port
     privileged: true
     env:
       RABBITMQ_DEFAULT_USER: "{{ rabbitmq_docker_env_user }}"
@@ -24,7 +24,7 @@
 - name: "Remove Rabbitmq Container"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
-    name: "{{ rabbitmq_app_name }}"
+    name: "{{ rabbitmq_docker_name }}"
     state: absent
   tags:
     - uninstall-rabbitmq
