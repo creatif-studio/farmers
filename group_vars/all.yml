@@ -76,3 +76,9 @@ rabbitmq_docker_ui_ports: 15672
 rabbitmq_docker_amqp_ports: 5672
 rabbitmq_docker_env_user: rabbitmquser
 rabbitmq_docker_env_password: rabbitmqpassword
+
+# JOOMLA ENV
+joomla_docker_name: joomla
+joomla_docker_image: joomla
+joomla_docker_tag: latest
+joomla_docker_ports: 8080
