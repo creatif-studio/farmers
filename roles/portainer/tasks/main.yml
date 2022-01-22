@@ -8,7 +8,7 @@
       - name: cloudboz-network
     restart_policy: always
     ports:
-      - "{{ portainer_docker_ports }}:9000"
+      - "{{ portainer_docker_ports }}:9443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "/home/{{ ansible_user }}/{{ portainer_docker_name }}-data:/data"
