@@ -2,7 +2,7 @@
 - name: "install phpmyadmin"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
-    name: "{{ phpmyadmin_app_name }}"
+    name: "{{ phpmyadmin_docker_name }}"
     image: "{{ phpmyadmin_docker_image }}:{{ phpmyadmin_docker_tag }}"
     networks:
       - name: cloudboz-network
