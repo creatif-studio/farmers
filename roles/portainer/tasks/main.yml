@@ -11,7 +11,7 @@
       - "{{ portainer_docker_ports }}:9000"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "/home/{{ ansible_user }}/{{ portainer_docker_name }}-data:/var/lib/portainer/data"
+      - "/home/{{ ansible_user }}/{{ portainer_docker_name }}-data:/data"
   tags:
     - install-portainer
 
