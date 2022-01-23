@@ -2,12 +2,21 @@
   become: true
   gather_facts: yes
   roles:
+    # First connect
     - commons
-    - mysql
     - optimization
+
+    # Databases
     - mysql
+    - phpmyadmin
     - postgresql
     - pgadmin
+
+    # CMS
     - wordpress
+    - joomla
+
+    # Apps
     - rancher
+    - redis
     - rabbitmq

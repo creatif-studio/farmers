@@ -7,7 +7,7 @@
     networks:
       - name: cloudboz-network
     volumes:
-      - "/home/{{ ansible_user }}/{{ wordpress_docker_name }}-data:/var/www/html"
+      - "/cloudboz/{{ wordpress_docker_name }}-data:/var/www/html"
     restart_policy: always
     ports:
       - "{{ wordpress_docker_ports }}:80"
@@ -28,3 +28,10 @@
     state: absent
   tags:
     - uninstall-wordpress
+
+# CloudBoz - WordPress Uninstall with Data
+- name: "uninstall wordpress data"
+  become_user: "{{ ansible_user }}"
+  shell: "sudo rm -fr /cloudboz/{{ wordpress_docker_name }}-data"
+  tags:
+    - uninstall-wordpress-data

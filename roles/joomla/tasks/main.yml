@@ -1,0 +1,35 @@
+#joomla Install Docker
+- name: "install-joomla"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ joomla_docker_name }}"
+    image: "{{ joomla_docker_image }}:{{ joomla_docker_tag }}"
+    networks:
+      - name: cloudboz-network
+    volumes:  
+     - "/cloudboz/{{ joomla_docker_name }}-data:/var/www/html"
+    ports:
+     - "{{ joomla_docker_ports }}:80"
+    env:
+     JOOMLA_DB_HOST: "{{ mysql_docker_name }}:{{ mysql_docker_ports }}"
+     JOOMLA_DB_USER: "{{ mysql_docker_env_user }}"
+     JOOMLA_DB_PASSWORD: "{{ mysql_docker_env_password }}"
+     JOOMLA_DB_NAME: "{{ mysql_docker_env_database }}"
+  tags: 
+    - install-joomla    
+
+# CloudBoz - Joomla Uninstall
+- name: "uninstall joomla"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ joomla_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-joomla
+
+# CloudBoz - Joomla Uninstall with Data
+- name: "uninstall joomla data"
+  become_user: "{{ ansible_user }}"
+  shell: "sudo rm -fr /cloudboz/{{ joomla_docker_name }}-data"
+  tags:
+    - uninstall-joomla-data
