@@ -70,3 +70,11 @@ rabbitmq_ui_docker_ports: 15672
 rabbitmq_amqp_docker_ports: 5672
 rabbitmq_docker_env_user: rabbitmquser
 rabbitmq_docker_env_password: rabbitmqpassword
+
+# JENKINS ENV
+jenkins_docker_name: jenkins
+jenkins_docker_iamge: jenkins
+jenkins_docker_tag: 2.60.3-alpine
+jenkins_docker_ui_ports: 8081
+jenkins_docker_slave_ports: 50001
+
