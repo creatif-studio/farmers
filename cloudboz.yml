@@ -5,6 +5,7 @@
     # First connect
     - commons
     - optimization
+    - network
 
     # Databases
     - mysql

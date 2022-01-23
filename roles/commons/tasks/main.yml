@@ -55,6 +55,7 @@
       - debian-keyring 
       - debian-archive-keyring
       - jq
+      - libnss3-tools
     state: present
   tags:
     - install-commons
