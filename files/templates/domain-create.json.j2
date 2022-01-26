@@ -1,13 +1,13 @@
 {
   "rrsets": [
     {
-      "name": "{{ cloudboz_sub_domain }}",
+      "name": "{{ cloudboz_sub_domain }}.",
       "type": "A",
       "ttl": 86400,
       "changetype": "REPLACE",
       "records": [
         {
-          "content": "{{ ansible_default_ipv4.address }}",
+          "content": "{{ cloudboz_sub_domain_ip }}",
           "disabled": false
         }
       ]
