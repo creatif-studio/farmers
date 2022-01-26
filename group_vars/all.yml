@@ -90,6 +90,13 @@ rabbitmq_docker_amqp_ports: 5672
 rabbitmq_docker_env_user: rabbitmquser
 rabbitmq_docker_env_password: rabbitmqpassword
 
+# JENKINS ENV
+jenkins_docker_name: jenkins
+jenkins_docker_iamge: jenkins
+jenkins_docker_tag: 2.60.3-alpine
+jenkins_docker_ui_ports: 8081
+jenkins_docker_slave_ports: 50001
+
 # JOOMLA ENV
 joomla_docker_name: joomla
 joomla_docker_image: joomla
@@ -102,3 +109,4 @@ redis_docker_image: redis
 redis_docker_tag: latest
 redis_docker_ports: 6379
 redis_docker_env_password: redis-password
+
