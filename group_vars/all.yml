@@ -110,3 +110,8 @@ redis_docker_tag: latest
 redis_docker_ports: 6379
 redis_docker_env_password: redis-password
 
+# Portainer ENV
+portainer_docker_name: portainer
+portainer_docker_image: portainer/portainer-ce
+portainer_docker_tag: latest
+portainer_docker_ports: 9443

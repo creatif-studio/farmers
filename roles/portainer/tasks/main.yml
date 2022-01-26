@@ -1,0 +1,48 @@
+# CloudBoz - Portainer Install
+- name: "Install Portainer Container"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ portainer_docker_name }}"
+    image: "{{ portainer_docker_image }}:{{ portainer_docker_tag }}"
+    networks:
+      - name: cloudboz-network
+    restart_policy: always
+    ports:
+      - "{{ portainer_docker_ports }}:9443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/home/{{ ansible_user }}/{{ portainer_docker_name }}-data:/data"
+  tags:
+    - install-portainer
+
+# CloudBoz - Portainer Firewall Install
+- name: "'{{ ufw_rule }}' port '{{ portainer_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+  loop:
+    - "{{ portainer_docker_ports | quote }}"
+  tags:
+    - install-portainer
+
+# CloudBoz - Portainer Uninstall
+- name: "Remove Portainer Container"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ portainer_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-portainer
+
+# CloudBoz - Portainer Firewall Uninstall
+- name: "'{{ ufw_rule }}' port '{{ portainer_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+    delete: yes
+  loop:
+    - "{{ portainer_docker_ports | quote }}"
+  tags:
+    - uninstall-portainer
