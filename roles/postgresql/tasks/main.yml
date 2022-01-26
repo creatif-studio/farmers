@@ -15,7 +15,7 @@
       POSTGRES_USER: "{{ postgresql_docker_env_user }}"
       POSTGRES_PASSWORD: "{{ postgresql_docker_env_password }}"
     volumes:
-      - "/home/{{ ansible_user }}/{{ postgresql_docker_name }}-data:/var/lib/postgresql/data"
+      - "/cloudboz/{{ postgresql_docker_name }}-data:/var/lib/postgresql/data"
   tags:
     - install-postgresql
 
@@ -50,3 +50,10 @@
     - "{{ postgresql_docker_ports | quote }}"
   tags:
     - uninstall-postgresql
+
+# CloudBoz - PostgreSQL Uninstall with Data
+- name: "uninstall postgresql data"
+  become_user: "{{ ansible_user }}"
+  shell: "sudo rm -fr /cloudboz/{{ postgresql_docker_name }}-data"
+  tags:
+    - uninstall-postgresql-data

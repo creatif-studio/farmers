@@ -52,9 +52,56 @@
       - sshpass
       - whois
       - snapd
+      - debian-keyring 
+      - debian-archive-keyring
+      - jq
+      - libnss3-tools
+      - nginx
     state: present
   tags:
     - install-commons
+
+# CloudBoz - Install Certbot
+- name: "install certbot"
+  snap:
+    name: certbot
+    classic: yes
+  tags:
+    - install-commons
+
+- name: "Create a symbolic link certbot"
+  ansible.builtin.file:
+    src: /snap/bin/certbot
+    dest: /usr/bin/certbot
+    state: link
+  tags:
+  - install-commons
+
+# CloudBoz - Install Caddy
+# - name: "add caddy apt key"
+#   apt_key:
+#     url: "{{ caddy_apt_gpg_key }}"
+#     id: 65760C51EDEA2017CEA2CA15155B6D79CA56EA34
+#     state: present
+#   register: add_repository_key
+#   ignore_errors: "{{ caddy_apt_ignore_key_error }}"
+#   tags:
+#     - install-commons
+
+# - name: "add caddy repository"
+#   apt_repository:
+#     repo: "{{ caddy_apt_repository }}"
+#     state: present
+#     update_cache: true
+#   tags:
+#     - install-commons
+
+# - name: "install caddy"
+#   apt: name={{ item }} update_cache=false
+#   loop:
+#     - caddy
+#   tags:
+#     - install-commons
 
 # CloudBoz - Docker Install
 - name: "add gpg docker"
@@ -111,7 +158,7 @@
     - install-commons
 
 # CloudBoz - Firewall
-- name: Allow port 22,80,443
+- name: "allow port 22,80,443"
   community.general.ufw:
     rule: allow
     port: "{{ item }}"

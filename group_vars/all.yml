@@ -3,7 +3,7 @@ ansible_connection: ssh
 ansible_user: 
 ansible_ssh_pass: 
 ansible_sudo_pass: 
-ansible_ssh_private_key_file: files/sshkey.pem
+ansible_ssh_private_key_file: files/secrets/ssh.key
 ansible_python_interpreter: /usr/bin/python3
 
 # SSH ENV
@@ -21,8 +21,18 @@ docker_apt_arch: amd64
 docker_apt_repository: "deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ docker_apt_release_channel }}"
 docker_apt_gpg_key: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
 
+# CADDY ENV
+# caddy_apt_repository: "deb https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main"
+# caddy_apt_gpg_key: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
+# caddy_apt_ignore_key_error: true
+
 # FIREWALL ENV
 ufw_rule: allow
+
+# DOMAIN ENV
+cloudboz_domain: servermanajer.com
+cloudboz_sub_domain: wordpress.user6.servermanajer.com
+cloudboz_sub_domain_ip: 13.229.235.168
 
 # MYSQL ENV
 mysql_docker_name: mysql
@@ -35,7 +45,7 @@ mysql_docker_env_user: mysql-user-test # create a new user
 mysql_docker_env_password: mysql-pass-test # create a new password
 
 # PHPMYADMIN ENV
-phpmyadmin_app_name: phpmyadmin
+phpmyadmin_docker_name: phpmyadmin
 phpmyadmin_docker_image: phpmyadmin/phpmyadmin
 phpmyadmin_docker_tag: latest
 phpmyadmin_docker_ports: 3307 
@@ -62,7 +72,7 @@ pgadmin_docker_env_default_password: cloudboz
 wordpress_docker_name: wordpress
 wordpress_docker_image: wordpress
 wordpress_docker_tag: latest
-wordpress_docker_ports: 8080
+wordpress_docker_ports: 8181
 
 # RANCHER ENV
 rancher_docker_name: rancher
@@ -79,6 +89,13 @@ rabbitmq_docker_ui_ports: 15672
 rabbitmq_docker_amqp_ports: 5672
 rabbitmq_docker_env_user: rabbitmquser
 rabbitmq_docker_env_password: rabbitmqpassword
+
+# JENKINS ENV
+jenkins_docker_name: jenkins
+jenkins_docker_iamge: jenkins
+jenkins_docker_tag: 2.60.3-alpine
+jenkins_docker_ui_ports: 8081
+jenkins_docker_slave_ports: 50001
 
 # JOOMLA ENV
 joomla_docker_name: joomla

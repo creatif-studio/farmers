@@ -7,7 +7,7 @@
     networks:
       - name: cloudboz-network
     volumes:  
-     - "/home/{{ ansible_user }}/{{ joomla_docker_name }}-data:/var/www/html"
+     - "/cloudboz/{{ joomla_docker_name }}-data:/var/www/html"
     ports:
      - "{{ joomla_docker_ports }}:80"
     env:
@@ -26,3 +26,10 @@
     state: absent
   tags:
     - uninstall-joomla
+
+# CloudBoz - Joomla Uninstall with Data
+- name: "uninstall joomla data"
+  become_user: "{{ ansible_user }}"
+  shell: "sudo rm -fr /cloudboz/{{ joomla_docker_name }}-data"
+  tags:
+    - uninstall-joomla-data

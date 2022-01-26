@@ -1,9 +1,6 @@
 ## How to use this playbook?
-### Install
-```
-ansible-playbook cloudboz.yml --tags "install-rancher"
-```
-### Uninstall
-```
-ansible-playbook cloudboz.yml --tags "uninstall-rancher"
-```
+- `ansible-playbook cloudboz.yml --tags "install-rancher"`
+- `ansible-playbook cloudboz.yml --tags "uninstall-rancher"`
+
+## Uninstall apps with delete volume
+- `ansible-playbook cloudboz.yml --tags "uninstall-rancher, uninstall-rancher-data"`
