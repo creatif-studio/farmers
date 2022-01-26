@@ -1,6 +1,11 @@
 - hosts: all
   become: true
   gather_facts: yes
+  vars_files:
+    - group_vars/all.yml
+    - group_vars/dns.vault
+    - group_vars/ssl.vault
+    
   roles:
     # First connect
     - commons

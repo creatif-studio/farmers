@@ -1,3 +1,4 @@
+---
 # CloudBoz - WordPress Install
 - name: "install wordpress"
   become_user: "{{ ansible_user }}"
@@ -20,31 +21,42 @@
   tags:
     - install-wordpress
 
-# #CloudBoz - Create Sub Domain
-# - name: "create sub domain"
-#   become_user: "{{ ansible_user }}"
-#   template:
-#     src: "files/domain.json.j2"
-#     dest: "/tmp/domain.json"
-#   tags:
-#     - install-domain
+# CloudBoz - Reverse proxy
+- name: "reverse-proxy for apps"
+  template:
+    src: "{{ item }}"
+    dest: /etc/nginx/sites-available/{{ cloudboz_sub_domain }}
+  with_items:
+    - ../../../files/templates/nginx.conf.j2
+  tags:
+    - install-wordpress
 
-# # CloudBoz - Create Sub Domain 2
-# - name: "create sub domain"
-#   become_user: "{{ ansible_user }}"
-#   shell: "curl -H 'Content-Type: application/json' -X PATCH --data '{{ lookup('file', '/tmp/domain.json') | string }}' -H 'X-API-Key: dXkzVUF5VnYwN3A4RHg0' https://dns.cloudboz.com/api/v1/servers/localhost/zones/{{ cloudboz_domain }} | jq ."
-#   register: debugcurl
-#   tags:
-#     - install-domain
+- name: "create a symbolic link"
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/{{ cloudboz_sub_domain }}
+    dest: /etc/nginx/sites-enabled/{{ cloudboz_sub_domain }}
+    state: link
+  tags:
+  - install-wordpress
 
-# - debug: msg="{{ debugcurl.stdout }}"
-#   tags:
-#     - install-domain
-
-# CloudBoz - Generate SSL Sub Domain
-- name: "uninstall wordpress data"
+# CloudBoz - Create Sub Domain
+- name: "create sub domain"
   become_user: "{{ ansible_user }}"
-  shell: "docker exec -it caddy bash caddy reverse-proxy --from test.domain.xyz --to 'localhost:{{ wordpress_docker_ports }}'"
+  uri:
+    url: "https://dns.cloudboz.com/api/v1/servers/localhost/zones/{{ cloudboz_domain }}"
+    method: PATCH
+    body: "{{ lookup('template','../../../files/templates/domain-create.json.j2') }}"
+    body_format: json
+    status_code: 204
+    headers:
+      Content-Type: 'application/json'
+      X-API-Key: '{{ apikey }}'
+  tags:
+    - install-wordpress
+
+# CloudBoz - Create SSL
+- name: "Generate new certificate"
+  shell: "certbot --nginx --noninteractive --agree-tos --email {{ acme_email }} -d {{ cloudboz_sub_domain }}"
   tags:
     - install-wordpress
 
@@ -57,38 +69,29 @@
   tags:
     - uninstall-wordpress
 
+# CloudBoz - Delete Sub Domain
+- name: "delete sub domain"
+  become_user: "{{ ansible_user }}"
+  uri:
+    url: "https://dns.cloudboz.com/api/v1/servers/localhost/zones/{{ cloudboz_domain }}"
+    method: PATCH
+    body: "{{ lookup('template','../../../files/templates/domain-delete.json.j2') }}"
+    body_format: json
+    status_code: 204
+    headers:
+      Content-Type: 'application/json'
+      X-API-Key: '{{ apikey }}'
+  tags:
+    - uninstall-wordpress
+
+# CloudBoz - Create SSL
+- name: "Delete certificate"
+  shell: "certbot delete --cert-name {{ cloudboz_sub_domain }}"
+  tags:
+    - uninstall-wordpress
+
 # CloudBoz - WordPress Uninstall with Data
 - name: "uninstall wordpress data"
-  become_user: "{{ ansible_user }}"
-  shell: "sudo rm -fr /cloudboz/{{ wordpress_docker_name }}-data"
+  shell: "rm -fr /cloudboz/{{ wordpress_docker_name }}-data"
   tags:
     - uninstall-wordpress-data
-
-- name: "create sub domain"
-  become_user: "{{ ansible_user }}"
-  template:
-    src: "files/domain.json.j2"
-    dest: "/tmp/domain.json"
-  tags:
-    - install-domain
-
-- name: Display the JSON file content
-  shell: cat /tmp/domain.json
-  register: result
-  tags:
-    - install-domain
-
-- name: save the Json data to a Variable as a Fact
-  set_fact:
-    jsondata: "{{ result.stdout | from_json }}"
-  tags:
-    - install-domain
-
-- debug: msg="{{ jsondata }}"
-  tags:
-    - install-domain
-
-- name: hit endpoint
-  shell: "curl -H 'Content-Type: application/json' -X PATCH --data '{{ jsondata }}' -H 'X-API-Key: dXkzVUF5VnYwN3A4RHg0' https://dns.cloudboz.com/api/v1/servers/localhost/zones/{{ cloudboz_domain }} | jq ."
-  tags:
-    - install-domain

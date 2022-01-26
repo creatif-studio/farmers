@@ -3,7 +3,7 @@ ansible_connection: ssh
 ansible_user: 
 ansible_ssh_pass: 
 ansible_sudo_pass: 
-ansible_ssh_private_key_file: files/sshkey.pem
+ansible_ssh_private_key_file: files/ssh.key
 ansible_python_interpreter: /usr/bin/python3
 
 # SSH ENV
@@ -22,17 +22,17 @@ docker_apt_repository: "deb [arch={{ docker_apt_arch }}] https://download.docker
 docker_apt_gpg_key: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
 
 # CADDY ENV
-caddy_apt_repository: "deb https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main"
-caddy_apt_gpg_key: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
-caddy_apt_ignore_key_error: true
+# caddy_apt_repository: "deb https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main"
+# caddy_apt_gpg_key: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
+# caddy_apt_ignore_key_error: true
 
 # FIREWALL ENV
 ufw_rule: allow
 
 # DOMAIN ENV
 cloudboz_domain: servermanajer.com
-cloudboz_sub_domain: example.servermanajer.com
-cloudboz_sub_domain_ip: 13.213.37.214
+cloudboz_sub_domain: wordpress.user6.servermanajer.com
+cloudboz_sub_domain_ip: 13.229.235.168
 
 # MYSQL ENV
 mysql_docker_name: mysql
@@ -72,7 +72,7 @@ pgadmin_docker_env_default_password: cloudboz
 wordpress_docker_name: wordpress
 wordpress_docker_image: wordpress
 wordpress_docker_tag: latest
-wordpress_docker_ports: 8080
+wordpress_docker_ports: 8181
 
 # RANCHER ENV
 rancher_docker_name: rancher
