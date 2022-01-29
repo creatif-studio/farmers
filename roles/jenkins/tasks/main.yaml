@@ -14,4 +14,12 @@
       - name: cloudboz-network
   tags:
       - install-jenkins
-  
+
+# CloudBoz - Jenkins Uninstall
+- name: "Uninstall Jenkins"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ jenkins_docker_name }}"
+    state: absent
+  tags: 
+      - uninstall-jenkins
