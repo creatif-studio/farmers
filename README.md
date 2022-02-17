@@ -23,3 +23,8 @@ For the full documentation, please visit our [official Docs.](https://docs.cloud
 ## Want to Help?
 
 We welcome all contributions. If you're interested in contributing, please read our [contributing guide](https://github.com/cloudboz/cloudboz/blob/main/CONTRIBUTING.md) and [join our Facebook community](https://facebook.com/groups/cloudboz).
+
+## Contributors
+<a href = "#">
+  <img src = "https://contrib.rocks/image?repo=talk-ink/talk-ink"/>
+</a>
