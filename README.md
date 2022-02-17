@@ -26,5 +26,5 @@ We welcome all contributions. If you're interested in contributing, please read 
 
 ## Contributors
 <a href = "#">
-  <img src = "https://contrib.rocks/image?repo=talk-ink/talk-ink"/>
+  <img src = "https://contrib.rocks/image?repo=cloudboz/cloudboz"/>
 </a>
