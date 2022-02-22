@@ -1,0 +1,59 @@
+# CloudBoz - Moodle Install
+- name: "install moodle"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ moodle_docker_name }}"
+    image: "{{ moodle_docker_image }}:{{ moodle_docker_tag }}"
+    networks:
+      - name: cloudboz-network
+    volumes:
+      - "/cloudboz/{{ moodle_docker_name }}-data:/var/lib/moodle"
+    restart_policy: always
+    ports:
+      - "{{ moodle_docker_ports }}:3306"
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ moodle_docker_env_root_password }}"
+      MYSQL_DATABASE: "{{ moodle_docker_env_database }}"
+      MYSQL_USER: "{{ moodle_docker_env_user }}"
+      MYSQL_PASSWORD: "{{ moodle_docker_env_password }}"
+  tags:
+    - install-moodle
+
+# CloudBoz - Moodle Firewall Install
+- name: "'{{ ufw_rule }}' port '{{ moodle_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+  loop:
+    - "{{ moodle_docker_ports | quote }}"
+  tags:
+    - install-moodle
+
+# CloudBoz - Moodle Uninstall
+- name: "uninstall moodle"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ moodle_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-moodle
+
+# CloudBoz - Moodle Firewall Uninstall
+- name: "'{{ ufw_rule }}' port '{{ moodle_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+    delete: yes
+  loop:
+    - "{{ moodle_docker_ports | quote }}"
+  tags:
+    - uninstall-moodle
+
+# CloudBoz - Moodle Uninstall with Data
+- name: "uninstall moodle data"
+  become_user: "{{ ansible_user }}"
+  shell: "sudo rm -fr /cloudboz/{{ moodle_docker_name }}-data"
+  tags:
+    - uninstall-moodle-data

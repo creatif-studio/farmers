@@ -5,24 +5,31 @@
     - group_vars/all.yml
     - group_vars/dns.vault
     - group_vars/ssl.vault
-    
+  
   roles:
-    # First connect
     - commons
     - optimization
     - network
-
-    # Databases
     - mysql
+    - mariadb
     - phpmyadmin
     - postgresql
     - pgadmin
-
-    # CMS
+    - mongodb
+    - mongoexpress
+    - redis
+    - rebrow
     - wordpress
     - joomla
-
-    # Apps
+    - drupal
+    - magento
+    - moodle
+    - gitlab
+    - gitea
     - rancher
-    - redis
     - rabbitmq
+    - postalserver
+    - portus
+    - jitsi
+    - kafka
+    

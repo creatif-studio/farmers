@@ -1,0 +1,59 @@
+# CloudBoz - GitLab Install
+- name: "install gitlab"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ gitlab_docker_name }}"
+    image: "{{ gitlab_docker_image }}:{{ gitlab_docker_tag }}"
+    networks:
+      - name: cloudboz-network
+    volumes:
+      - "/cloudboz/{{ gitlab_docker_name }}-data:/var/lib/gitlab"
+    restart_policy: always
+    ports:
+      - "{{ gitlab_docker_ports }}:3306"
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ gitlab_docker_env_root_password }}"
+      MYSQL_DATABASE: "{{ gitlab_docker_env_database }}"
+      MYSQL_USER: "{{ gitlab_docker_env_user }}"
+      MYSQL_PASSWORD: "{{ gitlab_docker_env_password }}"
+  tags:
+    - install-gitlab
+
+# CloudBoz - GitLab Firewall Install
+- name: "'{{ ufw_rule }}' port '{{ gitlab_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+  loop:
+    - "{{ gitlab_docker_ports | quote }}"
+  tags:
+    - install-gitlab
+
+# CloudBoz - GitLab Uninstall
+- name: "uninstall gitlab"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ gitlab_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-gitlab
+
+# CloudBoz - GitLab Firewall Uninstall
+- name: "'{{ ufw_rule }}' port '{{ gitlab_docker_ports }}'"
+  community.general.ufw:
+    rule: "{{ ufw_rule }}"
+    port: "{{ item }}"
+    proto: tcp
+    delete: yes
+  loop:
+    - "{{ gitlab_docker_ports | quote }}"
+  tags:
+    - uninstall-gitlab
+
+# CloudBoz - GitLab Uninstall with Data
+- name: "uninstall gitlab data"
+  become_user: "{{ ansible_user }}"
+  shell: "sudo rm -fr /cloudboz/{{ gitlab_docker_name }}-data"
+  tags:
+    - uninstall-gitlab-data

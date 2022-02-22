@@ -1,0 +1,9 @@
+[all]
+
+
+# Configure IP for Rancher/Kubernetes
+[kube_control_plane]
+
+[kube_ectd]
+
+[kube_worker]
