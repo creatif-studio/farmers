@@ -7,15 +7,13 @@
     networks:
       - name: cloudboz-network
     volumes:
-      - "/cloudboz/{{ mongodb_docker_name }}-data:/var/lib/mongodb"
+      - "/cloudboz/{{ mongodb_docker_name }}-data:/data/db"
     restart_policy: always
     ports:
       - "{{ mongodb_docker_ports }}:3306"
     env:
-      MYSQL_ROOT_PASSWORD: "{{ mongodb_docker_env_root_password }}"
-      MYSQL_DATABASE: "{{ mongodb_docker_env_database }}"
-      MYSQL_USER: "{{ mongodb_docker_env_user }}"
-      MYSQL_PASSWORD: "{{ mongodb_docker_env_password }}"
+      MONGO_INITDB_ROOT_USERNAME: "{{ mongodb_docker_env_root_username }}"
+      MONGO_INITDB_ROOT_PASSWORD: "{{ mongodb_docker_env_root_password }}"
   tags:
     - install-mongodb
 

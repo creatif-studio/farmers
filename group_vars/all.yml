@@ -44,6 +44,16 @@ mysql_docker_env_database: mysql-db-test # create a new database
 mysql_docker_env_user: mysql-user-test # create a new user
 mysql_docker_env_password: mysql-pass-test # create a new password
 
+# MARIADB ENV
+mariadb_docker_name: mariadb
+mariadb_docker_image: mariadb
+mariadb_docker_tag: latest
+mariadb_docker_ports: 3306
+mariadb_docker_env_root_password: mariadb-root-pass # default user is a root
+mariadb_docker_env_database: mariadb-db-test # create a new database
+mariadb_docker_env_user: mariadb-user-test # create a new user
+mariadb_docker_env_password: mariadb-pass-test # create a new password
+
 # PHPMYADMIN ENV
 phpmyadmin_docker_name: phpmyadmin
 phpmyadmin_docker_image: phpmyadmin/phpmyadmin
@@ -68,11 +78,31 @@ pgadmin_docker_ports: 15432
 pgadmin_docker_env_default_email: admin@cloudboz.com
 pgadmin_docker_env_default_password: cloudboz
 
+# MONGODB ENV
+mongodb_docker_name: mongodb
+mongodb_docker_image: mongodb
+mongodb_docker_tag: latest
+mongodb_docker_ports: 27017
+mongodb_docker_env_root_username: mongodb-root-user # default user is a root
+mongodb_docker_env_root_password: mongodb-root-pass # default user is a root
+
+# MONGOEXPRESS ENV
+mongoexpress_docker_name: mongo-express
+mongoexpress_docker_image: mongo-express
+mongoexpress_docker_tag: latest
+mongoexpress_docker_ports: 8081
+
 # WORDPRESS ENV
 wordpress_docker_name: wordpress
 wordpress_docker_image: wordpress
 wordpress_docker_tag: latest
 wordpress_docker_ports: 8181
+
+# DRUPAL ENV
+drupal_docker_name: drupal
+drupal_docker_image: drupal
+drupal_docker_tag: latest
+drupal_docker_ports: 8181
 
 # RANCHER ENV
 rancher_docker_name: rancher

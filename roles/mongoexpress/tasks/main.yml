@@ -6,54 +6,21 @@
     image: "{{ mongoexpress_docker_image }}:{{ mongoexpress_docker_tag }}"
     networks:
       - name: cloudboz-network
-    volumes:
-      - "/cloudboz/{{ mongoexpress_docker_name }}-data:/var/lib/mongoexpress"
     restart_policy: always
-    ports:
-      - "{{ mongoexpress_docker_ports }}:3306"
     env:
-      MYSQL_ROOT_PASSWORD: "{{ mongoexpress_docker_env_root_password }}"
-      MYSQL_DATABASE: "{{ mongoexpress_docker_env_database }}"
-      MYSQL_USER: "{{ mongoexpress_docker_env_user }}"
-      MYSQL_PASSWORD: "{{ mongoexpress_docker_env_password }}"
-  tags:
-    - install-mongoexpress
-
-# CloudBoz - Mongo Express Firewall Install
-- name: "'{{ ufw_rule }}' port '{{ mongoexpress_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-  loop:
-    - "{{ mongoexpress_docker_ports | quote }}"
+      ME_CONFIG_MONGODB_ADMINUSERNAME: "{{ mongodb_docker_env_root_username }}"
+      ME_CONFIG_MONGODB_ADMINPASSWORD: "{{ mongodb_docker_env_root_password }}"
+      ME_CONFIG_MONGODB_URL: "mongodb://{{mongodb_docker_env_root_username}}:{{mongodb_docker_env_root_password}}@{{ mongodb_docker_name }}:{{ mongodb_docker_ports | quote }}"
+    ports:
+      - "{{ mongoexpress_docker_ports }}:8081"
   tags:
     - install-mongoexpress
 
 # CloudBoz - Mongo Express Uninstall
-- name: "uninstall mongoexpress"
+- name: "Remove mongoexpress"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
     name: "{{ mongoexpress_docker_name }}"
     state: absent
   tags:
     - uninstall-mongoexpress
-
-# CloudBoz - Mongo Express Firewall Uninstall
-- name: "'{{ ufw_rule }}' port '{{ mongoexpress_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-    delete: yes
-  loop:
-    - "{{ mongoexpress_docker_ports | quote }}"
-  tags:
-    - uninstall-mongoexpress
-
-# CloudBoz - Mongo Express Uninstall with Data
-- name: "uninstall mongoexpress data"
-  become_user: "{{ ansible_user }}"
-  shell: "sudo rm -fr /cloudboz/{{ mongoexpress_docker_name }}-data"
-  tags:
-    - uninstall-mongoexpress-data

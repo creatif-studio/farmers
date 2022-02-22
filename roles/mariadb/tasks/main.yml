@@ -12,10 +12,10 @@
     ports:
       - "{{ mariadb_docker_ports }}:3306"
     env:
-      MYSQL_ROOT_PASSWORD: "{{ mariadb_docker_env_root_password }}"
-      MYSQL_DATABASE: "{{ mariadb_docker_env_database }}"
-      MYSQL_USER: "{{ mariadb_docker_env_user }}"
-      MYSQL_PASSWORD: "{{ mariadb_docker_env_password }}"
+      MARIADB_ROOT_PASSWORD: "{{ mariadb_docker_env_root_password }}"
+      MARIADB_DATABASE: "{{ mariadb_docker_env_database }}"
+      MARIADB_USER: "{{ mariadb_docker_env_user }}"
+      MARIADB_PASSWORD: "{{ mariadb_docker_env_password }}"
   tags:
     - install-mariadb
 
