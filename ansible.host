@@ -1,9 +1,23 @@
-[all]
+[application]
+# IP for single application
 
+[rancher]
+# IP node for rancher
 
-# Configure IP for Rancher/Kubernetes
-[kube_control_plane]
+[rancher_control_plane]
+# IP node for control plane
 
-[kube_ectd]
+[rancher_etcd]
+# IP node for etcd
 
-[kube_worker]
+[rancher_worker]
+# IP node for worker
+
+[kubernetes_control_plane]
+# IP node for control plane
+
+[kubernetes_etcd]
+# IP node for etcd 
+
+[kubernetes_worker]
+# IP node for worker
