@@ -140,8 +140,17 @@ redis_docker_tag: latest
 redis_docker_ports: 6379
 redis_docker_env_password: redis-password
 
-# Portainer ENV
+# PORTAINER ENV
 portainer_docker_name: portainer
 portainer_docker_image: portainer/portainer-ce
 portainer_docker_tag: latest
 portainer_docker_ports: 9443
+
+# GITLAB ENV
+gitlab_docker_name: gitlab
+gitlab_docker_image: gitlab/gitlab-ce
+gitlab_docker_tag: latest
+gitlab_docker_ports_http: 80
+gitlab_docker_ports_https: 443
+gitlab_docker_ports_ssh: 22
+gitlab_docker_domain: https://git.domain.com
