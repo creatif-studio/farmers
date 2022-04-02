@@ -1,0 +1,8 @@
+# GITLAB ENV
+gitlab_docker_name: gitlab
+gitlab_docker_image: gitlab/gitlab-ce
+gitlab_docker_tag: latest
+gitlab_docker_ports_http: 80
+gitlab_docker_ports_https: 443
+gitlab_docker_ports_ssh: 22
+gitlab_docker_domain: https://git.domain.com

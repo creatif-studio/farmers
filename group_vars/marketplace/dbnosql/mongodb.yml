@@ -1,0 +1,8 @@
+
+# MONGODB ENV
+mongodb_docker_name: mongodb
+mongodb_docker_image: mongodb
+mongodb_docker_tag: latest
+mongodb_docker_ports: 27017
+mongodb_docker_env_root_username: mongodb-root-user # default user is a root
+mongodb_docker_env_root_password: mongodb-root-pass # default user is a root

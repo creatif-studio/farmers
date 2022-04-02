@@ -1,0 +1,10 @@
+
+# POSTGRES ENV
+postgresql_docker_name: postgresql
+postgresql_docker_image: postgres
+postgresql_docker_tag: 13-bullseye
+postgresql_docker_ports: 5432
+postgresql_docker_env_root_password: postgresql-root-pass
+postgresql_docker_env_database: postgresql-db-test
+postgresql_docker_env_user: postgresql-user-test
+postgresql_docker_env_password: postgresql-pass-test

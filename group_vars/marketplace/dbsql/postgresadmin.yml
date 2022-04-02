@@ -1,0 +1,8 @@
+
+# PGADMIN ENV
+pgadmin_docker_name: pgadmin
+pgadmin_docker_image: dpage/pgadmin4
+pgadmin_docker_tag: latest
+pgadmin_docker_ports: 15432
+pgadmin_docker_env_default_email: admin@cloudboz.com
+pgadmin_docker_env_default_password: cloudboz
