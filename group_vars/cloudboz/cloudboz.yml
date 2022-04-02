@@ -21,11 +21,6 @@ docker_apt_arch: amd64
 docker_apt_repository: "deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ docker_apt_release_channel }}"
 docker_apt_gpg_key: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
 
-# CADDY ENV
-# caddy_apt_repository: "deb https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main"
-# caddy_apt_gpg_key: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
-# caddy_apt_ignore_key_error: true
-
 # FIREWALL ENV
 ufw_rule: allow
 
