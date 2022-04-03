@@ -10,10 +10,8 @@
     ports:
       - "{{ postgresql_docker_ports }}:5432"
     env:
-      POSTGRES_ROOT_PASSWORD: "{{ postgresql_docker_env_root_password }}"
-      POSTGRES_DATABASE: "{{ postgresql_docker_env_database }}"
-      POSTGRES_USER: "{{ postgresql_docker_env_user }}"
-      POSTGRES_PASSWORD: "{{ postgresql_docker_env_password }}"
+      POSTGRES_USER: "{{ postgresql_docker_env_root_username }}"
+      POSTGRES_PASSWORD: "{{ postgresql_docker_env_root_password }}"
     volumes:
       - "/cloudboz/{{ postgresql_docker_name }}-data:/var/lib/postgresql/data"
   tags:

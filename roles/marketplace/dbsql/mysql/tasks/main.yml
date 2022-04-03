@@ -13,9 +13,6 @@
       - "{{ mysql_docker_ports }}:3306"
     env:
       MYSQL_ROOT_PASSWORD: "{{ mysql_docker_env_root_password }}"
-      MYSQL_DATABASE: "{{ mysql_docker_env_database }}"
-      MYSQL_USER: "{{ mysql_docker_env_user }}"
-      MYSQL_PASSWORD: "{{ mysql_docker_env_password }}"
   tags:
     - install-mysql
 

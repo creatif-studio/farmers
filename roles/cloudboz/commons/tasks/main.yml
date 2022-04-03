@@ -1,22 +1,22 @@
 ---
 # CloudBoz - Default configurations
-- name: "replace sshd_config for pass & pubkey auth"
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '{{ item.From }}'
-    line: '{{ item.To }}'
-  with_items:
-    - { From: 'PasswordAuthentication no', To: '{{ pass_auth }}'}
-    - { From: 'PubkeyAuthentication no', To: '{{ pubkey_auth }}'}
-  tags:
-    - install-commons
+# - name: "replace sshd_config for pass & pubkey auth"
+#   lineinfile:
+#     path: /etc/ssh/sshd_config
+#     regexp: '{{ item.From }}'
+#     line: '{{ item.To }}'
+#   with_items:
+#     - { From: 'PasswordAuthentication no', To: '{{ pass_auth }}'}
+#     - { From: 'PubkeyAuthentication no', To: '{{ pubkey_auth }}'}
+#   tags:
+#     - install-commons
 
-- name: "restart sshd service"
-  systemd:
-    state: restarted
-    name: sshd
-  tags:
-    - install-commons
+# - name: "restart sshd service"
+#   systemd:
+#     state: restarted
+#     name: sshd
+#   tags:
+#     - install-commons
 
 # CloudBoz - Update & upgrade systems
 - name: "update and upgrade systems"

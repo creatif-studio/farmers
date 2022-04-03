@@ -3,7 +3,5 @@ postgresql_docker_name: postgresql
 postgresql_docker_image: postgres
 postgresql_docker_tag: 13-bullseye
 postgresql_docker_ports: 5432
-postgresql_docker_env_root_password: root
-postgresql_docker_env_database: database
-postgresql_docker_env_user: new-user
-postgresql_docker_env_password: password
+postgresql_docker_env_root_username: root
+postgresql_docker_env_root_password: password
