@@ -1,0 +1,4 @@
+# GITLAB RUNNER ENV
+gitlabrunner_docker_name: gitlab-runner
+gitlabrunner_docker_image: gitlab/gitlab-runner
+gitlabrunner_docker_tag: alpine

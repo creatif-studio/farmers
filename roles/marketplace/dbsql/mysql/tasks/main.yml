@@ -20,15 +20,15 @@
     - install-mysql
 
 # CloudBoz - MySQL Firewall Install
-- name: "'{{ ufw_rule }}' port '{{ mysql_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-  loop:
-    - "{{ mysql_docker_ports | quote }}"
-  tags:
-    - install-mysql
+# - name: "'{{ ufw_rule }}' port '{{ mysql_docker_ports }}'"
+#   community.general.ufw:
+#     rule: "{{ ufw_rule }}"
+#     port: "{{ item }}"
+#     proto: tcp
+#   loop:
+#     - "{{ mysql_docker_ports | quote }}"
+#   tags:
+#     - install-mysql
 
 # CloudBoz - MySQL Uninstall
 - name: "uninstall mysql"
@@ -40,16 +40,16 @@
     - uninstall-mysql
 
 # CloudBoz - MySQL Firewall Uninstall
-- name: "'{{ ufw_rule }}' port '{{ mysql_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-    delete: yes
-  loop:
-    - "{{ mysql_docker_ports | quote }}"
-  tags:
-    - uninstall-mysql
+# - name: "'{{ ufw_rule }}' port '{{ mysql_docker_ports }}'"
+#   community.general.ufw:
+#     rule: "{{ ufw_rule }}"
+#     port: "{{ item }}"
+#     proto: tcp
+#     delete: yes
+#   loop:
+#     - "{{ mysql_docker_ports | quote }}"
+#   tags:
+#     - uninstall-mysql
 
 # CloudBoz - MySQL Uninstall with Data
 - name: "uninstall mysql data"

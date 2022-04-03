@@ -1,6 +1,6 @@
 # JENKINS ENV
 jenkins_docker_name: jenkins
-jenkins_docker_iamge: jenkins
-jenkins_docker_tag: 2.60.3-alpine
-jenkins_docker_ui_ports: 8081
-jenkins_docker_slave_ports: 50001
+jenkins_docker_image: jenkins/jenkins
+jenkins_docker_tag: latest
+jenkins_docker_ui_ports: 8080
+jenkins_docker_slave_ports: 50000

@@ -10,7 +10,7 @@
       - "/cloudboz/{{ mongodb_docker_name }}-data:/data/db"
     restart_policy: always
     ports:
-      - "{{ mongodb_docker_ports }}:3306"
+      - "{{ mongodb_docker_ports }}:27017"
     env:
       MONGO_INITDB_ROOT_USERNAME: "{{ mongodb_docker_env_root_username }}"
       MONGO_INITDB_ROOT_PASSWORD: "{{ mongodb_docker_env_root_password }}"
@@ -18,15 +18,15 @@
     - install-mongodb
 
 # CloudBoz - MongoDB Firewall Install
-- name: "'{{ ufw_rule }}' port '{{ mongodb_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-  loop:
-    - "{{ mongodb_docker_ports | quote }}"
-  tags:
-    - install-mongodb
+# - name: "'{{ ufw_rule }}' port '{{ mongodb_docker_ports }}'"
+#   community.general.ufw:
+#     rule: "{{ ufw_rule }}"
+#     port: "{{ item }}"
+#     proto: tcp
+#   loop:
+#     - "{{ mongodb_docker_ports | quote }}"
+#   tags:
+#     - install-mongodb
 
 # CloudBoz - MongoDB Uninstall
 - name: "uninstall mongodb"
@@ -38,16 +38,16 @@
     - uninstall-mongodb
 
 # CloudBoz - MongoDB Firewall Uninstall
-- name: "'{{ ufw_rule }}' port '{{ mongodb_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-    delete: yes
-  loop:
-    - "{{ mongodb_docker_ports | quote }}"
-  tags:
-    - uninstall-mongodb
+# - name: "'{{ ufw_rule }}' port '{{ mongodb_docker_ports }}'"
+#   community.general.ufw:
+#     rule: "{{ ufw_rule }}"
+#     port: "{{ item }}"
+#     proto: tcp
+#     delete: yes
+#   loop:
+#     - "{{ mongodb_docker_ports | quote }}"
+#   tags:
+#     - uninstall-mongodb
 
 # CloudBoz - MongoDB Uninstall with Data
 - name: "uninstall mongodb data"

@@ -1,0 +1,30 @@
+---
+# CloudBoz - GitLab Runner Install
+- name: "install gitlab-runner"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ gitlabrunner_docker_name }}"
+    image: "{{ gitlabrunner_docker_image }}:{{ gitlabrunner_docker_tag }}"
+    networks:
+      - name: cloudboz-network
+    volumes:
+      - "/cloudboz/{{ gitlabrunner_docker_name }}-data:/etc/gitlab-runner"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    restart_policy: always
+  tags:
+    - install-gitlabrunner
+
+# CloudBoz - GitLab Runner Uninstall
+- name: "uninstall gitlab-runner"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: "{{ gitlabrunner_docker_name }}"
+    state: absent
+  tags:
+    - uninstall-gitlabrunner
+
+# CloudBoz - gitlabrunner Uninstall with Data
+- name: "uninstall gitlab-runner data"
+  shell: "rm -fr /cloudboz/{{ gitlabrunner_docker_name }}-data"
+  tags:
+    - uninstall-gitlabrunner-data
