@@ -10,17 +10,20 @@
     volumes:
       - "/cloudboz/{{ jenkins_docker_name }}-data:/var/jenkins_home"
     restart_policy: always
+    env:
+      USER_UID: "1000"
+      USER_GID: "1000"
     networks:
       - name: cloudboz-network
   tags:
       - install-jenkins
 
 # CloudBoz - Jenkins Install
-- name: "change permission"
-  become_user: "{{ ansible_user }}"
-  shell: "sudo chown -R 1000:1000 /cloudboz/{{ jenkins_docker_name }}-data"
-  tags:
-    - install-jenkins
+# - name: "change permission"
+#   become_user: "{{ ansible_user }}"
+#   shell: "sudo chown -R 1000:1000 /cloudboz/{{ jenkins_docker_name }}-data"
+#   tags:
+#     - install-jenkins
 
 # CloudBoz - Jenkins Uninstall
 - name: "uninstall jenkins"

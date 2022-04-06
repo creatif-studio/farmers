@@ -7,8 +7,8 @@
     # ------------- # 
 
     - group_vars/cloudboz/cloudboz.yml
-    - group_vars/cloudbozvault/dns.vault
-    - group_vars/cloudbozvault/ssl.vault
+    # - group_vars/cloudbozvault/dns.vault
+    # - group_vars/cloudbozvault/ssl.vault
 
     # -------------------- #
     # CLOUDBOZ MARKETPLACE #

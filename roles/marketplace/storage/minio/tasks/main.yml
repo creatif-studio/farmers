@@ -7,28 +7,28 @@
     networks:
       - name: cloudboz-network
     volumes:
-      - "/cloudboz/{{ minio_docker_name }}-data:/var/lib/minio"
+      - "/cloudboz/{{ minio_docker_name }}-data:/data"
     restart_policy: always
     ports:
-      - "{{ minio_docker_ports }}:3306"
+      - "{{ minio_docker_ports_minio }}:9000"
+      - "{{ minio_docker_ports_console }}:9001"
     env:
-      MYSQL_ROOT_PASSWORD: "{{ minio_docker_env_root_password }}"
-      MYSQL_DATABASE: "{{ minio_docker_env_database }}"
-      MYSQL_USER: "{{ minio_docker_env_user }}"
-      MYSQL_PASSWORD: "{{ minio_docker_env_password }}"
+      MINIO_ROOT_USER: "{{ minio_docker_env_username }}"
+      MINIO_ROOT_PASSWORD: "{{ minio_docker_env_password }}"
+    command: "server /data --console-address ':9001'"
   tags:
     - install-minio
 
 # CloudBoz - MinIO Firewall Install
-- name: "'{{ ufw_rule }}' port '{{ minio_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-  loop:
-    - "{{ minio_docker_ports | quote }}"
-  tags:
-    - install-minio
+# - name: "'{{ ufw_rule }}' port '{{ minio_docker_ports }}'"
+#   community.general.ufw:
+#     rule: "{{ ufw_rule }}"
+#     port: "{{ item }}"
+#     proto: tcp
+#   loop:
+#     - "{{ minio_docker_ports | quote }}"
+#   tags:
+#     - install-minio
 
 # CloudBoz - MinIO Uninstall
 - name: "uninstall minio"
@@ -40,16 +40,16 @@
     - uninstall-minio
 
 # CloudBoz - MinIO Firewall Uninstall
-- name: "'{{ ufw_rule }}' port '{{ minio_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-    delete: yes
-  loop:
-    - "{{ minio_docker_ports | quote }}"
-  tags:
-    - uninstall-minio
+# - name: "'{{ ufw_rule }}' port '{{ minio_docker_ports }}'"
+#   community.general.ufw:
+#     rule: "{{ ufw_rule }}"
+#     port: "{{ item }}"
+#     proto: tcp
+#     delete: yes
+#   loop:
+#     - "{{ minio_docker_ports | quote }}"
+#   tags:
+#     - uninstall-minio
 
 # CloudBoz - MinIO Uninstall with Data
 - name: "uninstall minio data"

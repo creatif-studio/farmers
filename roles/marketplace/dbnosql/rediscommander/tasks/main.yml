@@ -15,7 +15,7 @@
       - "{{ redis_docker_ports }}:6379"
     privileged: true
   tags:
-    - install-redis
+    - install-rediscommander
 
 # CloudBoz - Redis Firewall Install
 - name: "'{{ ufw_rule }}' port '{{ redis_docker_ports }}'"
@@ -26,7 +26,7 @@
   loop:
     - "{{ redis_docker_ports | quote }}"
   tags:
-    - install-redis
+    - install-rediscommander
 
 # CloudBoz - Redis Uninstall
 - name: "uninstall redis"
@@ -35,7 +35,7 @@
     name: "{{ redis_docker_name }}"
     state: absent
   tags:
-    - uninstall-redis
+    - uninstall-rediscommander
 
 # CloudBoz - Redis Firewall Uninstall
 - name: "'{{ ufw_rule }}' port '{{ redis_docker_ports }}'"
@@ -47,11 +47,11 @@
   loop:
     - "{{ redis_docker_ports | quote }}"
   tags:
-    - uninstall-redis
+    - uninstall-rediscommander
 
 # CloudBoz - Redis Uninstall with Data
 # - name: "uninstall redis data"
 #   become_user: "{{ ansible_user }}"
 #   shell: "sudo rm -fr /cloudboz/{{ redis_docker_name }}-data"
 #   tags:
-#     - uninstall-redis-data
+#     - uninstall-rediscommander-data

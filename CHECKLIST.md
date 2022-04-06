@@ -30,8 +30,8 @@
 - [ ] postgresadmin :
 
 ## GIT
-- [ ] gitlab :
-- [ ] gitea :
+- [x] gitlab : success
+- [x] gitea : success
 
 ## CONTAINER ORCHESTRATION
 - [ ] swarm :

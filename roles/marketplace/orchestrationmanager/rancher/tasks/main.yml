@@ -1,59 +1,59 @@
-# CloudBoz - MinIO Install
-- name: "install minio"
+# CloudBoz - rancher Install
+- name: "install rancher"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
-    name: "{{ minio_docker_name }}"
-    image: "{{ minio_docker_image }}:{{ minio_docker_tag }}"
+    name: "{{ rancher_docker_name }}"
+    image: "{{ rancher_docker_image }}:{{ rancher_docker_tag }}"
     networks:
       - name: cloudboz-network
     volumes:
-      - "/cloudboz/{{ minio_docker_name }}-data:/var/lib/minio"
+      - "/cloudboz/{{ rancher_docker_name }}-data:/var/lib/rancher"
     restart_policy: always
     ports:
-      - "{{ minio_docker_ports }}:3306"
+      - "{{ rancher_docker_ports }}:3306"
     env:
-      MYSQL_ROOT_PASSWORD: "{{ minio_docker_env_root_password }}"
-      MYSQL_DATABASE: "{{ minio_docker_env_database }}"
-      MYSQL_USER: "{{ minio_docker_env_user }}"
-      MYSQL_PASSWORD: "{{ minio_docker_env_password }}"
+      MYSQL_ROOT_PASSWORD: "{{ rancher_docker_env_root_password }}"
+      MYSQL_DATABASE: "{{ rancher_docker_env_database }}"
+      MYSQL_USER: "{{ rancher_docker_env_user }}"
+      MYSQL_PASSWORD: "{{ rancher_docker_env_password }}"
   tags:
-    - install-minio
+    - install-rancher
 
-# CloudBoz - MinIO Firewall Install
-- name: "'{{ ufw_rule }}' port '{{ minio_docker_ports }}'"
+# CloudBoz - rancher Firewall Install
+- name: "'{{ ufw_rule }}' port '{{ rancher_docker_ports }}'"
   community.general.ufw:
     rule: "{{ ufw_rule }}"
     port: "{{ item }}"
     proto: tcp
   loop:
-    - "{{ minio_docker_ports | quote }}"
+    - "{{ rancher_docker_ports | quote }}"
   tags:
-    - install-minio
+    - install-rancher
 
-# CloudBoz - MinIO Uninstall
-- name: "uninstall minio"
+# CloudBoz - rancher Uninstall
+- name: "uninstall rancher"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
-    name: "{{ minio_docker_name }}"
+    name: "{{ rancher_docker_name }}"
     state: absent
   tags:
-    - uninstall-minio
+    - uninstall-rancher
 
-# CloudBoz - MinIO Firewall Uninstall
-- name: "'{{ ufw_rule }}' port '{{ minio_docker_ports }}'"
+# CloudBoz - rancher Firewall Uninstall
+- name: "'{{ ufw_rule }}' port '{{ rancher_docker_ports }}'"
   community.general.ufw:
     rule: "{{ ufw_rule }}"
     port: "{{ item }}"
     proto: tcp
     delete: yes
   loop:
-    - "{{ minio_docker_ports | quote }}"
+    - "{{ rancher_docker_ports | quote }}"
   tags:
-    - uninstall-minio
+    - uninstall-rancher
 
-# CloudBoz - MinIO Uninstall with Data
-- name: "uninstall minio data"
+# CloudBoz - rancher Uninstall with Data
+- name: "uninstall rancher data"
   become_user: "{{ ansible_user }}"
-  shell: "sudo rm -fr /cloudboz/{{ minio_docker_name }}-data"
+  shell: "sudo rm -fr /cloudboz/{{ rancher_docker_name }}-data"
   tags:
-    - uninstall-minio-data
+    - uninstall-rancher-data
