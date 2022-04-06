@@ -2,5 +2,5 @@
 rancher_docker_name: rancher
 rancher_docker_image: rancher/rancher
 rancher_docker_tag: latest
-rancher_docker_http_ports: 80
-rancher_docker_https_ports: 443
+rancher_docker_ports_http: 80
+rancher_docker_ports_https: 443

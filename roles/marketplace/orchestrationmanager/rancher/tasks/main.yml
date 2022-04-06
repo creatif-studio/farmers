@@ -1,4 +1,4 @@
-# CloudBoz - rancher Install
+# CloudBoz - Rancher Install
 - name: "install rancher"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
@@ -10,27 +10,13 @@
       - "/cloudboz/{{ rancher_docker_name }}-data:/var/lib/rancher"
     restart_policy: always
     ports:
-      - "{{ rancher_docker_ports }}:3306"
-    env:
-      MYSQL_ROOT_PASSWORD: "{{ rancher_docker_env_root_password }}"
-      MYSQL_DATABASE: "{{ rancher_docker_env_database }}"
-      MYSQL_USER: "{{ rancher_docker_env_user }}"
-      MYSQL_PASSWORD: "{{ rancher_docker_env_password }}"
+      - "{{ rancher_docker_ports_http }}:80"
+      - "{{ rancher_docker_ports_https }}:443"
+    privileged: true
   tags:
     - install-rancher
 
-# CloudBoz - rancher Firewall Install
-- name: "'{{ ufw_rule }}' port '{{ rancher_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-  loop:
-    - "{{ rancher_docker_ports | quote }}"
-  tags:
-    - install-rancher
-
-# CloudBoz - rancher Uninstall
+# CloudBoz - Rancher Uninstall
 - name: "uninstall rancher"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
@@ -39,19 +25,7 @@
   tags:
     - uninstall-rancher
 
-# CloudBoz - rancher Firewall Uninstall
-- name: "'{{ ufw_rule }}' port '{{ rancher_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-    delete: yes
-  loop:
-    - "{{ rancher_docker_ports | quote }}"
-  tags:
-    - uninstall-rancher
-
-# CloudBoz - rancher Uninstall with Data
+# CloudBoz - Rancher Uninstall Data
 - name: "uninstall rancher data"
   become_user: "{{ ansible_user }}"
   shell: "sudo rm -fr /cloudboz/{{ rancher_docker_name }}-data"

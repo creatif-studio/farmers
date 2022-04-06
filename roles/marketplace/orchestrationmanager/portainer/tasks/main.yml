@@ -1,37 +1,34 @@
-# CloudBoz - portainer Install
-- name: "install portainer"
+# CloudBoz - Portainer Install
+- name: "Install Portainer"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
     name: "{{ portainer_docker_name }}"
     image: "{{ portainer_docker_image }}:{{ portainer_docker_tag }}"
     networks:
       - name: cloudboz-network
-    volumes:
-      - "/cloudboz/{{ portainer_docker_name }}-data:/var/lib/portainer"
     restart_policy: always
     ports:
-      - "{{ portainer_docker_ports }}:3306"
-    env:
-      MYSQL_ROOT_PASSWORD: "{{ portainer_docker_env_root_password }}"
-      MYSQL_DATABASE: "{{ portainer_docker_env_database }}"
-      MYSQL_USER: "{{ portainer_docker_env_user }}"
-      MYSQL_PASSWORD: "{{ portainer_docker_env_password }}"
+      - "{{ portainer_docker_ports_app }}:9000"
+      - "{{ portainer_docker_ports_agent }}:8000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/cloudboz/{{ portainer_docker_name }}-data:/data"
   tags:
     - install-portainer
 
-# CloudBoz - portainer Firewall Install
-- name: "'{{ ufw_rule }}' port '{{ portainer_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-  loop:
-    - "{{ portainer_docker_ports | quote }}"
-  tags:
-    - install-portainer
+# CloudBoz - Portainer Firewall Install
+# - name: "'{{ ufw_rule }}' port '{{ portainer_docker_ports }}'"
+#   community.general.ufw:
+#     rule: "{{ ufw_rule }}"
+#     port: "{{ item }}"
+#     proto: tcp
+#   loop:
+#     - "{{ portainer_docker_ports | quote }}"
+#   tags:
+#     - install-portainer
 
-# CloudBoz - portainer Uninstall
-- name: "uninstall portainer"
+# CloudBoz - Portainer Uninstall
+- name: "Remove Portainer"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
     name: "{{ portainer_docker_name }}"
@@ -39,21 +36,21 @@
   tags:
     - uninstall-portainer
 
-# CloudBoz - portainer Firewall Uninstall
-- name: "'{{ ufw_rule }}' port '{{ portainer_docker_ports }}'"
-  community.general.ufw:
-    rule: "{{ ufw_rule }}"
-    port: "{{ item }}"
-    proto: tcp
-    delete: yes
-  loop:
-    - "{{ portainer_docker_ports | quote }}"
-  tags:
-    - uninstall-portainer
-
-# CloudBoz - portainer Uninstall with Data
+# CloudBoz - Portainer Uninstall Data
 - name: "uninstall portainer data"
   become_user: "{{ ansible_user }}"
   shell: "sudo rm -fr /cloudboz/{{ portainer_docker_name }}-data"
   tags:
     - uninstall-portainer-data
+
+# CloudBoz - Portainer Firewall Uninstall
+# - name: "'{{ ufw_rule }}' port '{{ portainer_docker_ports }}'"
+#   community.general.ufw:
+#     rule: "{{ ufw_rule }}"
+#     port: "{{ item }}"
+#     proto: tcp
+#     delete: yes
+#   loop:
+#     - "{{ portainer_docker_ports | quote }}"
+#   tags:
+#     - uninstall-portainer

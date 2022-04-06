@@ -1,33 +1,33 @@
-# CloudBoz - Rancher Install
-- name: "install rancher"
+# CloudBoz - kubernetes Install
+- name: "install kubernetes"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
-    name: "{{ rancher_docker_name }}"
-    image: "{{ rancher_docker_image }}:{{ rancher_docker_tag }}"
+    name: "{{ kubernetes_docker_name }}"
+    image: "{{ kubernetes_docker_image }}:{{ kubernetes_docker_tag }}"
     networks:
       - name: cloudboz-network
     volumes:
-      - "/cloudboz/{{ rancher_docker_name }}-data:/var/lib/rancher"
+      - "/cloudboz/{{ kubernetes_docker_name }}-data:/var/lib/kubernetes"
     restart_policy: always
     ports:
-      - "{{ rancher_docker_http_ports }}:80"
-      - "{{ rancher_docker_https_ports }}:443"
+      - "{{ kubernetes_docker_http_ports }}:80"
+      - "{{ kubernetes_docker_https_ports }}:443"
     privileged: true
   tags:
-    - install-rancher
+    - install-kubernetes
 
-# CloudBoz - rancher Uninstall
-- name: "uninstall rancher"
+# CloudBoz - kubernetes Uninstall
+- name: "uninstall kubernetes"
   become_user: "{{ ansible_user }}"
   community.docker.docker_container:
-    name: "{{ rancher_docker_name }}"
+    name: "{{ kubernetes_docker_name }}"
     state: absent
   tags:
-    - uninstall-rancher
+    - uninstall-kubernetes
 
-# CloudBoz - Rancher Uninstall with Data
-- name: "uninstall rancher data"
+# CloudBoz - kubernetes Uninstall with Data
+- name: "uninstall kubernetes data"
   become_user: "{{ ansible_user }}"
-  shell: "sudo rm -fr /cloudboz/{{ rancher_docker_name }}-data"
+  shell: "sudo rm -fr /cloudboz/{{ kubernetes_docker_name }}-data"
   tags:
-    - uninstall-rancher-data
+    - uninstall-kubernetes-data
