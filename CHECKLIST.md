@@ -38,9 +38,9 @@
 - [ ] kubernetes :
 
 ## ORCHESTRATION MANAGER
-- [ ] portainer :
-- [ ] rancher :
+- [x] portainer : success
+- [x] rancher : success
 
 ## STORAGE
-- [ ] minio :
+- [x] minio :
 - [ ] owncloud :
