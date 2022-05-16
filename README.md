@@ -2,19 +2,19 @@
 
 ## What is CloudBoz?
 
-**CloudBoz** is an open-source platform that makes it easy for users to manage servers and applications in one dashboard, so users don't need to be linux experts to manage servers and applications.
+**CloudBoz** is an open-source platform that makes it easy for users to manage servers and applications from one dashboard, so users don't need to be Linux experts to manage servers and applications.
 
 ## Community and Updates
 
-For help, questions, or if you just want a place to hang out, [join our facebook community.](https://facebook.com/groups/cloudboz)
+For help, questions, or if you just want a place to hang out, [join our Facebook community.](https://facebook.com/groups/cloudboz)
 
 ## Why CloudBoz?
 - No need to learn linux servers, CloudBoz can handle it for you.
 - CloudBoz can configure multiple servers with a one-click installer.
 - Choose what you want to install on your servers from the CloudBoz Marketplace.
-- Monitoring multiple servers and applications (CPU, Memory, Logs, etc).
+- Monitoring multiple servers and applications (CPU, Memory, Logs, etc.).
 - Team management for easily managing your servers and applications.
-- Much, much more...
+- Much, much more.
 
 ## Docs
 
