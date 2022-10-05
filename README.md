@@ -1,4 +1,4 @@
-# CloudBoz
+# CloudBoz Core
 
 ## What is CloudBoz?
 
