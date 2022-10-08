@@ -18,7 +18,6 @@ Agent-less cloud server management panel
 ### Security
 
 - [] Firewall
-- [] Kernel Optimization
 - [] Let's Encrypt
 
 ### Marketplace
