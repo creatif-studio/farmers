@@ -1,49 +1,23 @@
 - hosts: all
   become: true
   gather_facts: yes
-  vars_files:
-    - group_vars/cloudboz/cloudboz.yml
-    - group_vars/marketplace/cicd/jenkins.yml
-    - group_vars/marketplace/cicd/gitlabrunner.yml
-    - group_vars/marketplace/cms/wordpress.yml
-    - group_vars/marketplace/cms/joomla.yml
-    - group_vars/marketplace/datastream/kafka.yml
-    - group_vars/marketplace/datastream/rabbitmq.yml
-    - group_vars/marketplace/dbnosql/mongodb.yml
-    - group_vars/marketplace/dbnosql/mongodbexpress.yml
-    - group_vars/marketplace/dbnosql/redis.yml
-    - group_vars/marketplace/dbnosql/rediscommander.yml
-    - group_vars/marketplace/dbsql/mysql.yml
-    - group_vars/marketplace/dbsql/mysqladmin.yml
-    - group_vars/marketplace/dbsql/postgres.yml
-    - group_vars/marketplace/dbsql/postgresadmin.yml
-    - group_vars/marketplace/git/gitlab.yml
-    - group_vars/marketplace/git/gitea.yml
-    - group_vars/marketplace/orchestration/swarm.yml
-    - group_vars/marketplace/orchestration/kubernetes.yml
-    - group_vars/marketplace/orchestrationmanager/portainer.yml
-    - group_vars/marketplace/orchestrationmanager/rancher.yml
-    - group_vars/marketplace/storage/minio.yml
-    - group_vars/marketplace/storage/owncloud.yml
+  # custom vars_files
+  # vars_files:
+  #   - group_vars/custom.yml
   roles:
-    - cloudboz/commons
-    - cloudboz/optimization
-    - cloudboz/network
-    - marketplace/cicd/jenkins
-    - marketplace/cicd/gitlabrunner
-    - marketplace/cms/wordpress
-    - marketplace/cms/joomla
-    - marketplace/datastream/kafka
-    - marketplace/datastream/rabbitmq
-    - marketplace/dbnosql/mongodb
-    - marketplace/dbnosql/mongodbexpress
-    - marketplace/dbnosql/redis
-    - marketplace/dbnosql/rediscommander
-    - marketplace/dbsql/mysql
-    - marketplace/dbsql/mysqladmin
-    - marketplace/dbsql/postgres
-    - marketplace/dbsql/postgresadmin
-    - marketplace/git/gitlab
-    - marketplace/git/gitea
-    - marketplace/storage/minio
-    - marketplace/storage/owncloud
+    - common
+    - security
+    - app/cache
+    - app/cicd
+    - app/cms
+    - app/database
+    - app/git
+    - app/monitor
+    - app/storage
+    - app/stream
+  # run base on notified
+  # handlers:
+  #   - name: docker system prune
+  #     service:
+  #       name: apache2
+  #       state: reloaded
