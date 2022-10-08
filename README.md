@@ -29,8 +29,6 @@ Agent-less cloud server management panel
 - [] Drupal
 - [] Joomla
 - [] Magento
-- [] NextCloud
-- [] OwnCloud
 
 #### Database
 
@@ -60,6 +58,8 @@ Agent-less cloud server management panel
 
 #### Storage
 
+- [] NextCloud
+- [] OwnCloud
 - [] MinIO
 - [] LakeFS
 - [] JuiceFS
