@@ -1,8 +1,0 @@
-# GITLAB ENV
-gitlab_docker_name: gitlab
-gitlab_docker_image: gitlab/gitlab-ce
-gitlab_docker_tag: latest
-gitlab_docker_ports_http: 8181
-gitlab_docker_ports_https: 8282
-gitlab_docker_ports_ssh: 8383
-gitlab_docker_env_password: password

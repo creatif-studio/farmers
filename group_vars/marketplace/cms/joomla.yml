@@ -1,5 +1,0 @@
-# JOOMLA ENV
-joomla_docker_name: joomla
-joomla_docker_image: joomla
-joomla_docker_tag: latest
-joomla_docker_ports: 8080

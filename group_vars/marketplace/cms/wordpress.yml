@@ -1,5 +1,0 @@
-# WORDPRESS ENV
-wordpress_docker_name: wordpress
-wordpress_docker_image: wordpress
-wordpress_docker_tag: latest
-wordpress_docker_ports: 8181

@@ -1,6 +1,0 @@
-
-# MONGOEXPRESS ENV
-mongoexpress_docker_name: mongo-express
-mongoexpress_docker_image: mongo-express
-mongoexpress_docker_tag: latest
-mongoexpress_docker_ports: 8081

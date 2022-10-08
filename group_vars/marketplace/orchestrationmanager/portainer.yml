@@ -1,7 +1,0 @@
-
-# PORTAINER ENV
-portainer_docker_name: portainer
-portainer_docker_image: portainer/portainer-ce
-portainer_docker_tag: latest
-portainer_docker_ports_app: 9010
-portainer_docker_ports_agent: 8000

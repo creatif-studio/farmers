@@ -1,30 +1,77 @@
 # CloudBoz Core
 
-## What is CloudBoz?
+Agent-less cloud server management panel
 
-**CloudBoz** is an open-source platform that makes it easy for users to manage servers and applications from one dashboard, so users don't need to be Linux experts to manage servers and applications.
+## Features
 
-## Community and Updates
+### Commons
 
-For help, questions, or if you just want a place to hang out, [join our Facebook community.](https://facebook.com/groups/cloudboz)
+- [] Docker Engine
+- [] Docker Limit Logs
+- [] Docker System Prune
+- [] Docker Swarm
+- [] Docker Swarm Network
+- [] Docker Container Scale
+- [] Kong API Gateway
+- [] Portainer
 
-## Why CloudBoz?
-- No need to learn linux servers, CloudBoz can handle it for you.
-- CloudBoz can configure multiple servers with a one-click installer.
-- Choose what you want to install on your servers from the CloudBoz Marketplace.
-- Monitoring multiple servers and applications (CPU, Memory, Logs, etc.).
-- Team management for easily managing your servers and applications.
-- Much, much more.
+### Security
 
-## Docs
+- [] Firewall
+- [] Kernel Optimization
+- [] Let's Encrypt
 
-For the full documentation, please visit our [official docs.](https://docs.cloudboz.com)
+### Marketplace
 
-## Want to Help?
+#### CMS
 
-If you're interested in contributing, please read our [contributing guide](CONTRIBUTING.md) and [join our facebook community](https://facebook.com/groups/cloudboz).
+- [] WordPress
+- [] Drupal
+- [] Joomla
+- [] Magento
+- [] NextCloud
+- [] OwnCloud
 
-## Contributors
-<a href = "#">
-  <img src = "https://contrib.rocks/image?repo=cloudboz/cloudboz"/>
-</a>
+#### Database
+
+- [] MySQL
+- [] MariaDB
+- [] PostgreSQL
+- [] MongoDB
+- [] Cassandra
+
+#### Cache
+
+- [] Redis
+- [] Memcached
+
+#### CI/CD
+
+- [] GitHub Runner
+- [] GitLab Runner
+- [] Bitbucket Runner
+- [] Jenkins
+
+#### Git
+
+- [] GitLab
+- [] Gitea
+- [] Gogs
+
+#### Storage
+
+- [] MinIO
+- [] LakeFS
+- [] JuiceFS
+- [] GlusterFS
+
+#### Monitoring
+
+- [] Grafana
+- [] Prometheus
+- [] Node Exporter
+
+#### Streaming
+
+- [] Apache Kafka
+- [] RabbitMQ

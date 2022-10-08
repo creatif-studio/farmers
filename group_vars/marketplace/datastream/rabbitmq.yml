@@ -1,8 +1,0 @@
-# RABBITMQ ENV
-rabbitmq_docker_name: rabbitmq-app
-rabbitmq_docker_image: rabbitmq
-rabbitmq_docker_tag: 3.8-management-alpine
-rabbitmq_docker_ui_ports: 15672
-rabbitmq_docker_amqp_ports: 5672
-rabbitmq_docker_env_user: rabbitmquser
-rabbitmq_docker_env_password: rabbitmqpassword

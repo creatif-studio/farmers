@@ -1,6 +1,0 @@
-# gitea ENV
-gitea_docker_name: gitea
-gitea_docker_image: gitea/gitea
-gitea_docker_tag: latest
-gitea_docker_ports_app: 4000
-gitea_docker_ports_ssh: 4022

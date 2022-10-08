@@ -1,8 +1,0 @@
-# MINIO ENV
-minio_docker_name: minio
-minio_docker_image: minio/minio
-minio_docker_tag: latest
-minio_docker_ports_minio: 9000
-minio_docker_ports_console: 9001
-minio_docker_env_username: username
-minio_docker_env_password: password

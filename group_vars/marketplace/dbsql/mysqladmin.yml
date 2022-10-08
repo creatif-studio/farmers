@@ -1,5 +1,0 @@
-# PHPMYADMIN ENV
-phpmyadmin_docker_name: phpmyadmin
-phpmyadmin_docker_image: phpmyadmin/phpmyadmin
-phpmyadmin_docker_tag: latest
-phpmyadmin_docker_ports: 3307

@@ -1,6 +1,0 @@
-# MYSQL ENV
-mysql_docker_name: mysql
-mysql_docker_image: mysql
-mysql_docker_tag: latest
-mysql_docker_ports: 3306
-mysql_docker_env_root_password: password

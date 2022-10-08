@@ -1,7 +1,0 @@
-# MONGODB ENV
-mongodb_docker_name: mongodb
-mongodb_docker_image: mongo
-mongodb_docker_tag: latest
-mongodb_docker_ports: 27017
-mongodb_docker_env_root_username: root
-mongodb_docker_env_root_password: password

@@ -1,6 +1,0 @@
-# JENKINS ENV
-jenkins_docker_name: jenkins
-jenkins_docker_image: jenkins/jenkins
-jenkins_docker_tag: latest
-jenkins_docker_ui_ports: 8080
-jenkins_docker_slave_ports: 50000
