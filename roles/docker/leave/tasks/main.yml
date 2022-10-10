@@ -1,0 +1,9 @@
+---
+- name: "nodes leaving the swarm"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_swarm:
+    state: absent
+    force: true
+  ignore_errors: true
+  tags: 
+    - swarm-leave

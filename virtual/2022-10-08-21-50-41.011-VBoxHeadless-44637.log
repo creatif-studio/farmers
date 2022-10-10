@@ -1,0 +1,12 @@
+Log created: 2022-10-08T21:50:41.115294000Z
+Process ID:  44637 (0xae5d)
+Parent PID:  1 (0x1)
+Executable:  /usr/lib/virtualbox/VBoxHeadless
+Arg[0]: /usr/lib/virtualbox/VBoxHeadless
+Arg[1]: --comment
+Arg[2]: vagrant_worker2_1665254730456_73931
+Arg[3]: --startvm
+Arg[4]: 31428e58-d577-4c37-bd81-971ea2ff7b3f
+Arg[5]: --vrde
+Arg[6]: config
+AddRef: illegal refcnt=3221225469 state=2

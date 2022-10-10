@@ -1,0 +1,12 @@
+Log created: 2022-10-08T21:50:41.219170000Z
+Process ID:  39243 (0x994b)
+Parent PID:  1 (0x1)
+Executable:  /usr/lib/virtualbox/VBoxHeadless
+Arg[0]: /usr/lib/virtualbox/VBoxHeadless
+Arg[1]: --comment
+Arg[2]: vagrant_manager_1665254636278_38737
+Arg[3]: --startvm
+Arg[4]: c5c84aa4-3cf5-48c8-85c0-571791c0a78f
+Arg[5]: --vrde
+Arg[6]: config
+AddRef: illegal refcnt=3221225469 state=2

@@ -1,0 +1,30 @@
+- name: "check if swarm has already been initialized"
+  become_user: "{{ ansible_user }}"
+  shell: docker node ls
+  register: swarm_status
+  ignore_errors: true
+  tags: 
+    - swarm
+
+- name: "initialize docker swarm"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_swarm:
+    state: present
+    advertise_addr: "{{ groups['managers'][0] }}"
+  when: swarm_status.rc != 0
+  run_once: true
+  tags: 
+    - swarm
+
+- name: Get the Manager join-token
+  shell: docker swarm join-token --quiet manager
+  register: manager_token
+  tags: 
+    - swarm
+
+- name: "get the worker join-token"
+  become_user: "{{ ansible_user }}"
+  shell: docker swarm join-token --quiet worker
+  register: worker_token
+  tags: 
+    - swarm

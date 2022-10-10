@@ -1,0 +1,9 @@
+- name: "add workers to the swarm"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_swarm:
+    state: join
+    advertise_addr: "{{ groups['managers'][0] }}"
+    join_token: "{{ hostvars[groups['managers'][0]]['worker_token']['stdout'] }}"
+    remote_addrs: [ "{{ groups['managers'][0] }}:2377" ]
+  tags: 
+    - swarm

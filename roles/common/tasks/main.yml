@@ -1,9 +1,135 @@
 # TODO
-# - Docker Engine Install
-# - Docker Limit Logs Install
-# - Docker System Prune Install
-# - Docker Swarm Install
+# - Docker Engine Install [done]
+# - Docker Limit Logs Install [done]
+# - Docker System Prune Install [done]
+# - Docker Swarm Install [done]
 # - Docker Swarm Network Install
 # - Docker Container Scale
 # - Kong API Gateway
 # - Portainer Management
+
+---
+- name: "update operating systems"
+  apt:
+    update_cache: yes
+    autoremove: yes
+  tags:
+    - common
+
+- name: "install system dependencies"
+  apt:
+    name:
+      - software-properties-common
+      - ca-certificates
+      - lsb-release
+      - curl
+      - gnupg
+      - zip
+      - unzip
+      - git
+      - ncdu
+      - htop
+      - net-tools
+    state: present
+  tags:
+    - common
+
+- name: "add gpg docker"
+  apt_key:
+    url: "{{ docker_apt_gpg_key }}"
+    state: present
+  tags:
+    - common
+
+- name: "add docker repository"
+  apt_repository:
+    repo: "{{ docker_apt_repository }}"
+    state: present
+    update_cache: true
+  tags:
+    - common
+
+- name: "install docker"
+  apt: name={{ item }} update_cache=false
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+  tags:
+    - common
+
+- name: "install python package manager"
+  apt:
+    name: python3-pip
+  tags:
+    - common
+
+- name: "install python sdk"
+  become_user: "{{ ansible_user }}"
+  pip:
+    name:
+      - docker
+      - docker-compose
+      - jsondiff
+  tags:
+    - common
+
+- name: "add user permissions"
+  shell: "usermod -aG docker {{ ansible_user }}"
+  tags:
+    - common
+
+- name: "install docker limit logs"
+  template:
+    src: daemon.j2
+    dest: /etc/docker/daemon.json
+  tags: 
+    - common
+
+- name: "restart docker service"
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
+    name: docker
+  tags:
+    - common
+
+- name: "creates a cron file under /etc/cron.d"
+  ansible.builtin.cron:
+    name: docker system prune
+    minute: "0"
+    hour: "12"
+    user: root
+    job: "/bin/bash -c 'docker system prune -fa'"
+    cron_file: prune
+  tags: 
+    - common
+
+# - name: "get the manager join-token"
+#   shell: docker swarm join-token --quiet manager
+#   register: manager_token
+#   tags: 
+#     - swarm
+
+# - name: "check if swarm is already initialized"
+#   shell: docker node ls
+#   register: swarm_status
+#   ignore_errors: true
+#   tags: swarm
+
+# - name: "add managers to the swarm"
+#   community.docker.docker_swarm:
+#     state: join
+#     advertise_addr: "{{ hostvars['swarm-manager']['ansible_default_ipv4']['address'] }}"
+#     join_token: "{{ hostvars['swarm-manager']['manager_token']['stdout'] }}"
+#     remote_addrs: "{{ hostvars['swarm-manager']['ansible_default_ipv4']['address'] }}:2377"
+#   when: swarm_status.rc != 0
+#   tags: 
+#     - swarm
+
+# - name: "nodes leaving the swarm"
+#   community.docker.docker_swarm:
+#     state: absent
+#     force: true
+#   ignore_errors: true

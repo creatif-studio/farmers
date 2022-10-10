@@ -1,23 +1,40 @@
 - hosts: all
   become: true
-  gather_facts: yes
-  # custom vars_files
-  # vars_files:
-  #   - group_vars/custom.yml
   roles:
     - common
-    - security
-    - app/cache
-    - app/cicd
-    - app/cms
-    - app/database
-    - app/git
-    - app/monitor
-    - app/storage
-    - app/stream
-  # run base on notified
-  # handlers:
-  #   - name: docker system prune
-  #     service:
-  #       name: apache2
-  #       state: reloaded
+
+- hosts: managers
+  become: true
+  roles:
+    - docker/init
+
+- hosts: managers
+  become: true
+  roles:
+    - docker/manager
+
+- hosts: workers
+  become: true
+  roles:
+    - docker/worker
+
+- hosts: "{{ ansible_host_leave | default('0.0.0.0') }}"
+  become: true
+  gather_facts: yes
+  roles:
+    - docker/leave
+# - security
+# - app/cache
+# - app/cicd
+# - app/cms
+# - app/database
+# - app/git
+# - app/monitor
+# - app/storage
+# - app/stream
+# run base on notified
+# handlers:
+#   - name: docker system prune
+#     service:
+#       name: apache2
+#       state: reloaded
