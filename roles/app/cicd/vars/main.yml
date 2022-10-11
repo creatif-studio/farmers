@@ -1,0 +1,4 @@
+github_runner_image:
+gitlab_runner_image:
+bitbucket_runner_image:
+jenkins_runner_image:

@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  agent:
+    image: portainer/agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    networks:
+      - code_network
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == worker 
+  app:
+    image: portainer/portainer-ce
+    command: -H tcp://tasks.agent:9001 --tlsskipverify
+    ports:
+      - "9000:9000"
+      - "8000:8000"
+    volumes:
+      - /home/{{ ansible_user }}/swarmgun/portainer-data:/data
+    networks:
+      - code_network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+networks:
+  code_network:
+    external: true

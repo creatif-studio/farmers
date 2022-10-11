@@ -9,3 +9,32 @@
 # - MongoDB Uninstall
 # - Cassandra Install
 # - Cassandra Uninstall
+
+---
+- name: "create a directory if it does not exist"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: 
+    - /home/{{ ansible_user }}/swarmgun/postgres
+    - /home/{{ ansible_user }}/swarmgun/postgres-db-data
+    - /home/{{ ansible_user }}/swarmgun/postgres-admin-data
+  tags: 
+    - install-postgres
+
+- name: "copy docker stack postgres"
+  template:
+    src: postgres.yaml.j2
+    dest: /home/{{ ansible_user }}/swarmgun/postgres/postgres.yaml
+  tags: 
+    - install-postgres
+
+- name: "run docker stack deploy postgres"
+  community.docker.docker_stack:
+    state: present
+    name: postgres
+    compose:
+      - /home/{{ ansible_user }}/swarmgun/postgres/postgres.yaml
+  tags:
+    - install-postgres

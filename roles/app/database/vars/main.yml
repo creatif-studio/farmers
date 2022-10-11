@@ -1,0 +1,8 @@
+postgres_image:
+postgres_username:
+postgres_password:
+postgres_database:
+
+pgadmin_image:
+pgadmin_email:
+pgadmin_password:

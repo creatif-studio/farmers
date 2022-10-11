@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:11
+    volumes:
+      - /home/{{ ansible_user }}/swarmgun/postgres-db-data:/var/lib/postgresql/data
+    networks:
+      - code_network
+    environment:
+      POSTGRES_USER: {{ postgres_username }}
+      POSTGRES_PASSWORD: {{ postgres_password }}
+      POSTGRES_DB: {{ postgres_database }}
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy: 
+        condition: on-failure
+  admin:
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: {{ pgadmin_email }}
+      PGADMIN_DEFAULT_PASSWORD: {{ pgadmin_password }}
+    volumes:
+      - /home/{{ ansible_user }}/swarmgun/postgres-admin-data:/var/lib/pgadmin
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy: 
+        condition: on-failure
+networks:
+  code_network:
+    external: true

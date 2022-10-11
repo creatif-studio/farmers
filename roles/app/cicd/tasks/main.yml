@@ -7,3 +7,115 @@
 # - Bitbucket Runner Uninstall
 # - Jenkins Install
 # - Jenkins Uninstall
+
+---
+- name: "create a directory if it does not exist"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: 
+    - /home/{{ ansible_user }}/cloudboz/github-runner
+    - /home/{{ ansible_user }}/cloudboz/github-runner/data
+  tags: 
+    - github-runner
+
+- name: "copy docker stack github-runner"
+  template:
+    src: github-runner.j2
+    dest: /home/{{ ansible_user }}/cloudboz/github-runner/github-runner.yml
+  tags: 
+    - github-runner
+
+- name: "run docker stack deploy github-runner"
+  community.docker.docker_stack:
+    state: present
+    name: runner
+    compose:
+      - /home/{{ ansible_user }}/cloudboz/github-runner/github-runner.yml
+  tags:
+    - github-runner
+
+---
+- name: "create a directory if it does not exist"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: 
+    - /home/{{ ansible_user }}/cloudboz/gitlab-runner
+    - /home/{{ ansible_user }}/cloudboz/gitlab-runner/data
+  tags: 
+    - gitlab-runner
+
+- name: "copy docker stack gitlab-runner"
+  template:
+    src: gitlab-runner.j2
+    dest: /home/{{ ansible_user }}/cloudboz/gitlab-runner/gitlab-runner.yml
+  tags: 
+    - gitlab-runner
+
+- name: "run docker stack deploy gitlab-runner"
+  community.docker.docker_stack:
+    state: present
+    name: runner
+    compose:
+      - /home/{{ ansible_user }}/cloudboz/gitlab-runner/gitlab-runner.yml
+  tags:
+    - gitlab-runner
+
+---
+- name: "create a directory if it does not exist"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: 
+    - /home/{{ ansible_user }}/cloudboz/bitbucket-runner
+    - /home/{{ ansible_user }}/cloudboz/bitbucket-runner/data
+  tags: 
+    - bitbucket-runner
+
+- name: "copy docker stack bitbucket-runner"
+  template:
+    src: bitbucket-runner.j2
+    dest: /home/{{ ansible_user }}/cloudboz/bitbucket-runner/bitbucket-runner.yml
+  tags: 
+    - bitbucket-runner
+
+- name: "run docker stack deploy bitbucket-runner"
+  community.docker.docker_stack:
+    state: present
+    name: runner
+    compose:
+      - /home/{{ ansible_user }}/cloudboz/bitbucket-runner/bitbucket-runner.yml
+  tags:
+    - bitbucket-runner
+
+---
+- name: "create a directory if it does not exist"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: 
+    - /home/{{ ansible_user }}/cloudboz/jenkins-runner
+    - /home/{{ ansible_user }}/cloudboz/jenkins-runner/data
+  tags: 
+    - jenkins-runner
+
+- name: "copy docker stack jenkins-runner"
+  template:
+    src: jenkins-runner.j2
+    dest: /home/{{ ansible_user }}/cloudboz/jenkins-runner/jenkins-runner.yml
+  tags: 
+    - jenkins-runner
+
+- name: "run docker stack deploy jenkins-runner"
+  community.docker.docker_stack:
+    state: present
+    name: runner
+    compose:
+      - /home/{{ ansible_user }}/cloudboz/jenkins-runner/jenkins-runner.yml
+  tags:
+    - jenkins-runner
