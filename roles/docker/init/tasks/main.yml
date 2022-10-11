@@ -17,6 +17,7 @@
     - swarm
 
 - name: Get the Manager join-token
+  become_user: "{{ ansible_user }}"
   shell: docker swarm join-token --quiet manager
   register: manager_token
   tags: 

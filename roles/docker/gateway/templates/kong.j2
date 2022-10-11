@@ -1,0 +1,100 @@
+version: '3.7'
+
+services:
+  kongdb:
+    image: {{ kongdb_image }}
+    volumes:
+      - /home/{{ ansible_user }}/cloudboz/kong/data:/var/lib/postgresql/data
+    networks:
+      - cloudboz
+    environment:
+      POSTGRES_USER: {{ kongdb_username }}
+      POSTGRES_PASSWORD: {{ kongdb_password }}
+      POSTGRES_DB: {{ kongdb_database }}
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy: 
+        condition: on-failure
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "{{ kongdb_username }}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  kongmig:
+    image: {{ kong_image }}
+    command: kong migrations bootstrap
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_DATABASE: {{ kongdb_database }}
+      KONG_PG_USER: {{ kongdb_username }}
+      KONG_PG_PASSWORD: {{ kongdb_password }}
+      KONG_PG_PORT: 5432
+      KONG_PG_HOST: kongdb
+    networks:
+      - cloudboz
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  kong:
+    image: {{ kong_image }}
+    user: root
+    volumes:
+      - kong_prefix_vol:/var/run/kong
+      - kong_tmp_vol:/tmp
+    networks:
+      - cloudboz
+    environment:
+      KONG_PROXY_LISTEN: 0.0.0.0:8000
+      KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      KONG_DATABASE: postgres
+      KONG_PG_DATABASE: {{ kongdb_database }}
+      KONG_PG_USER: {{ kongdb_username }}
+      KONG_PG_PASSWORD: {{ kongdb_password }}
+      KONG_PG_HOST: kongdb
+      KONG_PG_PORT: 5432
+      KONG_LUA_SSL_TRUSTED_CERTIFICATE: system
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_PREFIX: /var/run/kong
+    ports:
+      - 80:8000
+      - 443:8443
+      - 8001:8001
+    healthcheck:
+      test: ["CMD", "kong", "health"]
+      interval: 5s
+      timeout: 2s
+      retries: 15
+    read_only: false
+    deploy:
+      restart_policy:
+        delay: 50s
+        condition: on-failure
+        max_attempts: 5
+        window: 10s
+      mode: global
+      placement:
+        constraints:
+          - node.role == worker
+networks:
+  cloudboz:
+    external: true
+
+volumes:
+  kong_data: {}
+  kong_prefix_vol:
+    driver_opts:
+     type: tmpfs
+     device: tmpfs
+  kong_tmp_vol:
+    driver_opts:
+     type: tmpfs
+     device: tmpfs

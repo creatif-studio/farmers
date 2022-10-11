@@ -1,0 +1,6 @@
+kongdb_image: postgres:11.17-alpine3.16
+kongdb_username: kong
+kongdb_password: kong
+kongdb_database: kong
+
+kong_image: kong:3.0.0-alpine

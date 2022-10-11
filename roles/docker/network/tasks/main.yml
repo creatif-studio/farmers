@@ -1,0 +1,7 @@
+- name: "create a network"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_network:
+    name: cloudboz
+    driver: overlay
+  tags: 
+    - swarm

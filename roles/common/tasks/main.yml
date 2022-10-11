@@ -3,7 +3,7 @@
 # - Docker Limit Logs Install [done]
 # - Docker System Prune Install [done]
 # - Docker Swarm Install [done]
-# - Docker Swarm Network Install
+# - Docker Swarm Network Install [done]
 # - Docker Container Scale
 # - Kong API Gateway
 # - Portainer Management
@@ -105,31 +105,3 @@
     cron_file: prune
   tags: 
     - common
-
-# - name: "get the manager join-token"
-#   shell: docker swarm join-token --quiet manager
-#   register: manager_token
-#   tags: 
-#     - swarm
-
-# - name: "check if swarm is already initialized"
-#   shell: docker node ls
-#   register: swarm_status
-#   ignore_errors: true
-#   tags: swarm
-
-# - name: "add managers to the swarm"
-#   community.docker.docker_swarm:
-#     state: join
-#     advertise_addr: "{{ hostvars['swarm-manager']['ansible_default_ipv4']['address'] }}"
-#     join_token: "{{ hostvars['swarm-manager']['manager_token']['stdout'] }}"
-#     remote_addrs: "{{ hostvars['swarm-manager']['ansible_default_ipv4']['address'] }}:2377"
-#   when: swarm_status.rc != 0
-#   tags: 
-#     - swarm
-
-# - name: "nodes leaving the swarm"
-#   community.docker.docker_swarm:
-#     state: absent
-#     force: true
-#   ignore_errors: true
