@@ -3,3 +3,9 @@
 # - Redis Uninstall
 # - Memcached Install
 # - Memcached Uninstall
+
+- name: "node-exporter"
+  become: true
+  shell: wget -O - https://gist.githubusercontent.com/sgnd/e0ccafd62435d3224d148776390bfad5/raw/1c1254a4f0d5f8f4c73b510409613540802c5568/nodeexporter.sh | bash
+  tags: 
+    - node-exporter

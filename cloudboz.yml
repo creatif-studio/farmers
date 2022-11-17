@@ -4,6 +4,8 @@
     - group_vars/global.yml
   roles:
     - common
+    - security
+    - app/cache
 
 - hosts: managers
   become: true

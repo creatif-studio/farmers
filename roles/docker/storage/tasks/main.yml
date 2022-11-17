@@ -1,0 +1,31 @@
+---
+- name: "create a directory if it does not exist"
+  become_user: "{{ ansible_user }}"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: 
+    - /home/{{ ansible_user }}/cloudboz/kong
+    - /home/{{ ansible_user }}/cloudboz/kong/data
+  ignore_errors: true
+  tags: 
+    - kong
+
+- name: "copy docker stack kong"
+  become_user: "{{ ansible_user }}"
+  template:
+    src: kong.j2
+    dest: /home/{{ ansible_user }}/cloudboz/kong/kong.yml
+  tags: 
+    - kong
+
+- name: "run docker stack deploy kong"
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_stack:
+    state: present
+    name: kong
+    compose:
+      - /home/{{ ansible_user }}/cloudboz/kong/kong.yml
+  tags:
+    - kong

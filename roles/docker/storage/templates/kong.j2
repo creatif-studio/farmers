@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.7'
 
 services:
   kongdb:
@@ -50,7 +50,7 @@ services:
       - cloudboz
     environment:
       KONG_PROXY_LISTEN: 0.0.0.0:8000
-      KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443 http2 ssl
+      KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
       KONG_ADMIN_LISTEN: 0.0.0.0:8001
       KONG_DATABASE: postgres
       KONG_PG_DATABASE: {{ kongdb_database }}

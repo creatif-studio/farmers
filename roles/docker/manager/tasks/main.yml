@@ -12,7 +12,7 @@
     state: join
     advertise_addr: "{{ groups['managers'][0] }}"
     join_token: "{{ hostvars[groups['managers'][0]]['manager_token']['stdout'] }}"
-    remote_addrs: [ "{{ groups['managers'][0] }}:2377" ]
-  when: swarm_status.rc != 0
+    remote_addrs: "{{ groups['managers'][0] }}:2377"
+  when: swarm_status.rc != 1
   tags: 
     - swarm
