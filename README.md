@@ -1,4 +1,4 @@
-# Elastic Search Deployer
+# Docker Swarm Deployer
 
 This project provides a set of Ansible, Terraform and Vagrant configuration files to deploy a docker application to a local/cloud environment. The deployment process includes setting up the necessary infrastructure, configuring servers, installing software, and starting the application.
 
