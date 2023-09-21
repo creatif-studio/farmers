@@ -1,2 +1,2 @@
-virtual/.vagrant
-virtual/*.log
+virtual/vagrant/.vagrant
+virtual/vagrant/*.log

@@ -1,0 +1,44 @@
+- hosts: all
+  become: true
+  vars_files:
+    - group_vars/global.yml
+  roles:
+    - common
+    - security
+    - app/cache
+
+- hosts: managers
+  become: true
+  vars_files:
+    - group_vars/global.yml
+  roles:
+    - docker/init
+    - docker/network
+
+- hosts: managers
+  become: true
+  vars_files:
+    - group_vars/global.yml
+  roles:
+    - docker/manager
+
+- hosts: workers
+  become: true
+  vars_files:
+    - group_vars/global.yml
+  roles:
+    - docker/worker
+
+- hosts: managers
+  become: true
+  vars_files:
+    - group_vars/global.yml
+  roles:
+    - docker/gateway
+
+- hosts: "{{ ansible_host_leave | default('0.0.0.0') }}"
+  become: true
+  vars_files:
+    - group_vars/global.yml
+  roles:
+    - docker/leave
