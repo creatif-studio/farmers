@@ -1,6 +1,6 @@
 # Deploy
 
-This project provides a set of Ansible, Terraform and Vagrant configuration files to deploy a docker/native applications to a local/cloud environment. The deployment process includes setting up the necessary infrastructure, configuring servers, installing software, and starting the application.
+This project provides a set of Ansible, Terraform and Vagrant configuration files to deploy a docker/native applications to a local/cloud environment. The deployment process includes setting up the necessary infrastructure, configuring servers, installing software, and starting the application. See our `ROADMAP.md` for details. 
 
 ## Prerequisites
 
@@ -34,10 +34,11 @@ deploy/
 │   └── vagrant/*
 ├── architecture.png
 ├── deploy-single.yml
+├── deploy-single.cfg
+├── deploy-single.host
 ├── deploy-cluster.yml
-├── ansible.cfg
-├── ansible-single.host
-└── ansible-cluster.host
+├── deploy-cluster.cfg
+└── deploy-cluster.host
 ```
 
 ## Contributing
@@ -52,4 +53,4 @@ If you'd like to contribute to this project, please follow these steps:
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License. See the `LICENSE.md` file for details.
