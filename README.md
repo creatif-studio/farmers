@@ -41,6 +41,14 @@ deploy/
 └── deploy-cluster.host
 ```
 
+## How to Use
+
+To use this script, need to add extra value in command like this:
+
+```
+ansible-playbook -i deploy-cluster.cfg deploy-cluster.yml --tags "docker,rabbitmq" -e "var1=value1 var2=value2"
+```
+
 ## Contributing
 
 If you'd like to contribute to this project, please follow these steps:
