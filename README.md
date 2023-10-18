@@ -1,5 +1,5 @@
 # Deploy
-Creatif Studio: Empowering every aspect of Infra
+Empowering every aspect of Infra
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
