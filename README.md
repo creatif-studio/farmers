@@ -1,4 +1,4 @@
-# Deploy: Empowering every aspect of Infra
+# Creatif Studio: Deploy template for everyone
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
