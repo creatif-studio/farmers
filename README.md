@@ -1,6 +1,8 @@
 # Creatif Studio: Deploy template for everyone
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub issues](https://img.shields.io/github/issues/creatif-studio/creatif-studio)](https://github.com/creatif-studio/creatif-studio/issues)
+[![GitHub stars](https://img.shields.io/github/stars/creatif-studio/creatif-studio)](https://github.com/creatif-studio/creatif-studio/stargazers)
 
 This project provides a set of Ansible, Terraform, and Vagrant configuration files to deploy docker/native applications to a local/cloud environment. The deployment process includes setting up the necessary infrastructure, configuring servers, installing software, and starting the application. See our `ROADMAP.md` for details. 
 
