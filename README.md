@@ -1,4 +1,5 @@
-# Creatif Studio: Deploy template for everyone
+# Creatif Deploy
+Template for everyone
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues](https://img.shields.io/github/issues/creatif-studio/creatif-studio)](https://github.com/creatif-studio/creatif-studio/issues)
