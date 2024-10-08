@@ -1,5 +1,5 @@
-# Upcode
-Template deployment for everyone
+# Swarmers
+Free & Open: Deploy a Production Ready - Docker Swarm Cluster
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues](https://img.shields.io/github/issues/creatif-studio/creatif-deploy)](https://github.com/creatif-studio/creatif-deploy/issues)
